@@ -4,16 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lern-App Klasse 8.5</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<meta name="description" content="Lern-App der Klasse 8.5: Fach wählen, Thema wählen, üben. Alles bleibt auf dem eigenen Gerät.">
+<meta name="theme-color" content="#2747d8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Klasse 8.5">
 <style>
-/* Layout: Stundenplan-Idee. Jedes Fach ist eine Kachel mit Kürzel und Heftfarbe; darunter Themenliste, dann Inhalt. */
+/* Layout: Stundenplan-Idee. Jedes Fach ist eine Kachel mit Kürzel und Heftfarbe; darunter Themenliste, dann Inhalt.
+   Keine Schriften oder Skripte von fremden Servern, damit keine Daten an Dritte gehen. */
 :root{
   --bg:#eef1f6; --surface:#ffffff; --ink:#17203a; --muted:#5b6480; --line:#d5dbe8; --accent:#2747d8;
   --good:#1f8a4c; --bad:#c8362e;
   --blau:#2f5fe0; --rot:#d6453d; --gelb:#c98a00; --gruen:#2f9e5b; --violett:#7a4fd0; --tuerkis:#1497a8;
-  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
-  --body:"Atkinson Hyperlegible",Verdana,sans-serif;
+  --display:"Avenir Next","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,Verdana,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -32,6 +38,7 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+p{margin:0}
 
 .bar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
 .bar h1{font-size:1.15rem;flex:1;min-width:0;overflow-wrap:anywhere}
@@ -40,34 +47,75 @@ button{cursor:pointer}
 main{flex:1;min-height:0;overflow:auto;padding:20px 16px 40px}
 main.full{padding:0;overflow:hidden}
 .wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
-.lead{color:var(--muted);margin:0}
-.klasse{font-size:2.2rem;font-weight:800}
+.lead{color:var(--muted)}
+.klasse{font-family:var(--display);font-size:2.2rem;font-weight:800}
+
+.seg{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.seg button{flex:1;padding:10px;border:0;background:transparent;font-weight:700}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.fach{display:flex;flex-direction:column;gap:14px;align-items:flex-start;text-align:left;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--surface);border-bottom:5px solid var(--c)}
-.kz{font-family:var(--display);font-weight:800;font-size:1.3rem;color:#fff;background:var(--c);border-radius:10px;min-width:48px;height:48px;padding:0 8px;display:grid;place-items:center}
+.fach{display:flex;flex-direction:column;gap:12px;align-items:stretch;text-align:left;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--surface);border-bottom:5px solid var(--c)}
+.kz{font-family:var(--display);font-weight:800;font-size:1.3rem;color:#fff;background:var(--c);border-radius:10px;width:fit-content;min-width:48px;height:48px;padding:0 8px;display:grid;place-items:center}
 .fach b{font-family:var(--display);font-size:1.15rem;overflow-wrap:anywhere}
 .fach small{color:var(--muted)}
 .fach.neu{border-style:dashed;border-bottom:1px dashed var(--line);justify-content:center;align-items:center;color:var(--muted);min-height:120px}
+.meter{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--c,var(--accent));border-radius:99px}
+
+.hero{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
+.ava{font-size:2.6rem;width:76px;height:76px;flex:none;border-radius:50%;border:3px solid var(--accent);background:var(--bg);display:grid;place-items:center;padding:0;line-height:1}
+.hero div{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.hero b{font-family:var(--display);font-size:1.4rem}
+.hero small{color:var(--muted);font-variant-numeric:tabular-nums}
+.avas{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:8px}
+.avas button{font-size:1.8rem;height:54px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:0}
+.avas button[aria-pressed="true"]{border:3px solid var(--accent)}
+.news{border-left:5px solid var(--good)}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.gift{border:1px solid var(--line);border-top:4px solid var(--c);border-radius:12px;padding:8px 6px;text-align:center;font-size:.78rem;background:var(--bg);overflow-wrap:anywhere}
+.gift span{display:block;font-size:1.8rem;line-height:1.3}
+.gift.zu{color:var(--muted)}
+.gift.zu span{filter:grayscale(1);opacity:.35}
 
 .list{display:flex;flex-direction:column;gap:8px;list-style:none;margin:0;padding:0}
 .thema{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:14px;border-radius:12px;border:1px solid var(--line);border-left:5px solid var(--c);background:var(--surface)}
 .thema span{flex:1;overflow-wrap:anywhere}
-.pill{font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--c);color:#fff;white-space:nowrap}
+.pill{font-size:.75rem;font-weight:700;font-style:normal;padding:3px 9px;border-radius:99px;background:var(--c);color:#fff;white-space:nowrap}
 .pill.leer{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.pill.ok{background:transparent;color:var(--good);border:1px solid var(--good)}
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
 .card h3{font-size:1.05rem}
+.card ol,.card ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 .field{flex:1;min-width:140px;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
 textarea.field{min-height:150px;width:100%;resize:vertical}
 .btn{padding:11px 16px;border-radius:10px;border:0;background:var(--accent);color:var(--bg);font-weight:700}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .btn.warn{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+.btn.done[aria-pressed="true"]{background:var(--good)}
 .swatches{display:flex;gap:8px;flex-wrap:wrap}
 .sw{width:36px;height:36px;border-radius:50%;border:3px solid var(--surface);background:var(--c);box-shadow:0 0 0 1px var(--line)}
 .sw[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink)}
 
+.overlay{position:fixed;inset:0;background:rgba(10,14,28,.6);display:grid;place-items:center;padding:16px;overflow:auto;z-index:5}
+.overlay .card{max-width:480px;width:100%}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-weight:700;z-index:6}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{padding:9px 12px;border-radius:99px;border:1px solid var(--line);background:var(--surface);font-weight:700;font-size:.9rem}
+.tab[aria-selected="true"]{background:var(--blau);border-color:var(--blau);color:#fff}
+.aufgabe{font-family:var(--display);font-size:1.6rem;font-weight:600;overflow-wrap:anywhere}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{padding:14px 10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-weight:700;font-size:1.05rem}
+.opt.ok{border-color:var(--good);color:var(--good)}
+.opt.no{border-color:var(--bad);color:var(--bad)}
+.fb{border-radius:10px;padding:12px;border:1px solid var(--line);border-left:5px solid var(--good)}
+.fb.no{border-left-color:var(--bad)}
+.fb b{display:block}
+.stand{color:var(--muted);font-variant-numeric:tabular-nums}
+.merk{border-left:5px solid var(--blau)}
+.merk ul{margin:0;padding-left:20px}
 iframe{width:100%;height:100%;border:0;display:block;background:var(--bg)}
 [hidden]{display:none!important}
 </style>
@@ -77,6 +125,7 @@ iframe{width:100%;height:100%;border:0;display:block;background:var(--bg)}
   <button class="back" id="back" hidden>Zurück</button>
   <h1 id="title">Klasse 8.5</h1>
   <a id="ext" href="#" target="_blank" rel="noopener" hidden>Einzeln öffnen</a>
+  <a id="info" href="#hilfe">Info</a>
 </header>
 <main id="main"></main>
 
@@ -84,36 +133,68 @@ iframe{width:100%;height:100%;border:0;display:block;background:var(--bg)}
 (function(){
 "use strict";
 var COLORS=["blau","rot","gelb","gruen","violett","tuerkis"];
+/* Themen nach dem Rahmenlehrplan 1-10 Berlin/Brandenburg, Doppeljahrgangsstufe 7/8.
+   Welche Themen genau in Klasse 8 liegen, legt das schulinterne Curriculum fest. */
 var FAECHER=[
  {id:"mathe",name:"Mathe",kz:"Ma",color:"blau",topics:[
-   {id:"terme",name:"Terme und Gleichungen",kind:"app",src:"mathe/index.html"},
+   {id:"terme",name:"Terme und Gleichungen",kind:"app",src:"mathe/index.html",store:"xquest-mathe8-v1",fallback:"trainer"},
+   {id:"rational",name:"Rationale Zahlen"},
+   {id:"zuordnung",name:"Proportionale und antiproportionale Zuordnungen"},
    {id:"prozent",name:"Prozent- und Zinsrechnung"},
    {id:"funktionen",name:"Lineare Funktionen"},
-   {id:"geometrie",name:"Flächen und Körper"},
-   {id:"zufall",name:"Wahrscheinlichkeit"}]},
+   {id:"dreieck",name:"Dreiecke und Vierecke"},
+   {id:"kreis",name:"Kreis: Umfang und Flächeninhalt"},
+   {id:"koerper",name:"Prismen und Zylinder"},
+   {id:"zufall",name:"Daten und Zufall"}]},
  {id:"deutsch",name:"Deutsch",kz:"De",color:"rot",topics:[
-   {id:"eroerterung",name:"Erörterung"},
-   {id:"kurzgeschichte",name:"Kurzgeschichten"},
-   {id:"balladen",name:"Balladen"},
+   {id:"argument",name:"Argumentieren und Erörtern"},
+   {id:"inhalt",name:"Inhaltsangabe"},
+   {id:"kurzgeschichte",name:"Kurzgeschichten und Novellen"},
+   {id:"balladen",name:"Balladen und Gedichte"},
+   {id:"jugendbuch",name:"Jugendbuch lesen und vorstellen"},
+   {id:"sachtext",name:"Sachtexte und Diagramme verstehen"},
+   {id:"medien",name:"Zeitung und Medien"},
    {id:"konjunktiv",name:"Konjunktiv und indirekte Rede"},
-   {id:"komma",name:"Kommasetzung"}]},
+   {id:"satz",name:"Satzgefüge und Kommasetzung"},
+   {id:"rechtschreibung",name:"Rechtschreibung"}]},
  {id:"englisch",name:"Englisch",kz:"En",color:"gelb",topics:[
+   {id:"usa",name:"Living in the USA"},
+   {id:"media",name:"Media and free time"},
+   {id:"school",name:"School life and friends"},
    {id:"tenses",name:"Simple Past und Present Perfect"},
-   {id:"ifclauses",name:"If-Clauses"},
+   {id:"ifclauses",name:"If-Clauses Typ 1 und 2"},
    {id:"passive",name:"Passive"},
    {id:"reported",name:"Reported Speech"},
+   {id:"relative",name:"Relative Clauses"},
+   {id:"mediation",name:"Mediation und Schreiben"},
    {id:"vokabeln",name:"Vokabeln"}]},
  {id:"nawi",name:"NaWi",kz:"NW",color:"gruen",topics:[
-   {id:"nahrung",name:"Der Weg der Nahrung",kind:"app",src:"nawi/index.html"},
-   {id:"ernaehrung",name:"Ernährung und Nährstoffe"},
-   {id:"atmung",name:"Atmung und Blutkreislauf"},
+   {id:"nahrung",name:"Der Weg der Nahrung",kind:"app",src:"nawi/index.html",store:"wdn-lernapp-v1"},
+   {id:"atmung",name:"Atmung, Blut und Kreislauf"},
+   {id:"zelle",name:"Zelle: kleinste lebendige Einheit"},
+   {id:"lebensraum",name:"Lebensräume und ihre Bewohner"},
    {id:"stoffe",name:"Stoffe und ihre Eigenschaften"},
-   {id:"strom",name:"Elektrischer Stromkreis"}]}
+   {id:"reaktion",name:"Chemische Reaktionen"},
+   {id:"strom",name:"Elektrischer Strom: Stromstärke, Spannung, Widerstand"},
+   {id:"kraft",name:"Kräfte und ihre Wirkungen"},
+   {id:"waerme",name:"Wärme und Temperatur"}]}
 ];
+/* Geschenke je Fach: bei 50, 150 und 300 XP */
+var STEPS=[50,150,300];
+var GIFTS={
+  mathe:[["📐","Geodreieck"],["🧮","Rechenbrett"],["🏅","Mathe-Medaille"]],
+  deutsch:[["✏️","Bleistift"],["📖","Lieblingsbuch"],["🪶","Goldene Feder"]],
+  englisch:[["☕","Teetasse"],["📕","Wörterbuch"],["👑","Krone"]],
+  nawi:[["🌱","Keimling"],["🪴","Topfpflanze"],["🔬","Mikroskop"]],
+  _:[["⭐","Stern"],["🌟","Leuchtstern"],["🏆","Pokal"]]
+};
+var AVATARS=["🦊","🐼","🦉","🐙","🦖","🐱","🐶","🦄","🐸","🤖","🧙","🦸","🥷","🧑‍🚀"];
+var LEVELS=[0,100,250,450,700,1000,1400,1900,2500];
+var DONE_XP=25;
 
-/* Eigene Fächer, Themen und Notizen: nur auf diesem Gerät gespeichert */
-var KEY="klasse85-v1", own={subjects:[],topics:{},notes:{}};
-try{var s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s&&s.subjects){own=s; own.topics=own.topics||{}; own.notes=own.notes||{};}}catch(e){}
+/* Alles wird nur auf diesem Gerät gespeichert */
+var KEY="klasse85-v1", own={subjects:[],topics:{},notes:{},done:{},xp:{},got:{},view:"",avatar:AVATARS[0]};
+try{var s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s)for(var k in own)if(s[k]!==undefined&&s[k]!==null)own[k]=s[k];}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(own));}catch(e){}}
 
 function esc(t){return String(t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
@@ -122,13 +203,44 @@ function fach(id){return all().filter(function(f){return f.id===id;})[0];}
 function topics(f){return (f.topics||[]).concat(own.topics[f.id]||[]);}
 function isOwnSubject(id){return own.subjects.some(function(f){return f.id===id;});}
 function newId(){return "x"+Date.now().toString(36)+Math.floor(Math.random()*1296).toString(36);}
+function game(){return own.view==="spiel";}
+
+/* ---------- Punkte, Level, Geschenke ---------- */
+function appXp(store){try{var d=JSON.parse(localStorage.getItem(store)||"null");return d&&Number(d.xp)||0;}catch(e){return 0;}}
+function fachXp(f){
+  var n=own.xp[f.id]||0;
+  topics(f).forEach(function(t){ if(t.store)n+=appXp(t.store); if(own.done[f.id+"-"+t.id])n+=DONE_XP; });
+  return n;
+}
+function totalXp(){return all().reduce(function(sum,f){return sum+fachXp(f);},0);}
+function levelOf(xp){
+  var n=1, from=0, to=LEVELS[1];
+  while(xp>=to){ n++; from=to; to=n<LEVELS.length?LEVELS[n]:to+700; }
+  return {n:n,from:from,to:to,pct:Math.round((xp-from)/(to-from)*100)};
+}
+function gifts(f){return GIFTS[f.id]||GIFTS._;}
+function giftCount(f){var x=fachXp(f);return STEPS.filter(function(st){return x>=st;}).length;}
+function newGifts(){ /* frisch freigeschaltete Geschenke merken und zurückgeben */
+  var fresh=[];
+  all().forEach(function(f){
+    for(var i=0;i<giftCount(f);i++){var id=f.id+"-"+i; if(!own.got[id]){own.got[id]=1; fresh.push(gifts(f)[i][0]+" "+gifts(f)[i][1]+" für "+f.name);}}
+  });
+  if(fresh.length)save();
+  return fresh;
+}
+var toastT;
+function toast(text){
+  var el=document.getElementById("toast")||document.body.appendChild(Object.assign(document.createElement("div"),{id:"toast",className:"toast"}));
+  el.setAttribute("role","status"); el.textContent=text; el.hidden=false;
+  clearTimeout(toastT); toastT=setTimeout(function(){el.hidden=true;},1800);
+}
 
 var main=document.getElementById("main"), title=document.getElementById("title"),
-    back=document.getElementById("back"), ext=document.getElementById("ext"), backTo="";
+    back=document.getElementById("back"), ext=document.getElementById("ext"), info=document.getElementById("info"), backTo="";
 back.onclick=function(){location.hash=backTo;};
 
 function frame(t,to,full){
-  title.textContent=t; backTo=to; back.hidden=(to===null); ext.hidden=true;
+  title.textContent=t; backTo=to; back.hidden=(to===null); ext.hidden=true; info.hidden=!!full||location.hash==="#hilfe";
   main.className=full?"full":""; main.scrollTop=0;
 }
 
@@ -136,16 +248,36 @@ function frame(t,to,full){
 var pickColor="violett";
 function home(){
   frame("Klasse 8.5",null);
-  var h='<div class="wrap"><div><div class="klasse" style="font-family:var(--display)">Klasse 8.5</div><p class="lead">Wähle ein Fach. Danach siehst du die Themen.</p></div><div class="grid">';
+  var g=game(), h='<div class="wrap"><div><div class="klasse">Klasse 8.5</div><p class="lead">Wähle ein Fach. Danach siehst du die Themen.</p></div>'+
+    '<div class="seg" role="group" aria-label="Ansicht"><button data-view="einfach" aria-pressed="'+!g+'">Einfache Ansicht</button><button data-view="spiel" aria-pressed="'+g+'">Spiel-Ansicht</button></div>';
+  if(g){
+    var x=totalXp(), L=levelOf(x), fresh=newGifts();
+    h+='<section class="hero"><button class="ava" id="ava" aria-label="Figur ändern">'+own.avatar+'</button><div><b>Level '+L.n+'</b><span class="meter"><i style="width:'+L.pct+'%"></i></span><small>'+x+' XP · noch '+(L.to-x)+' bis Level '+(L.n+1)+'</small></div></section>'+
+      '<div class="card" id="pick" hidden><h3>Wähle deine Figur</h3><div class="avas">'+AVATARS.map(function(a){return '<button data-ava="'+a+'" aria-pressed="'+(a===own.avatar)+'">'+a+'</button>';}).join("")+'</div></div>';
+    if(fresh.length)h+='<div class="card news"><h3>Neues Geschenk!</h3><p>'+fresh.map(esc).join("<br>")+'</p></div>';
+  }
+  h+='<div class="grid">';
   all().forEach(function(f){
-    var n=topics(f).length;
-    h+='<button class="fach" style="--c:var(--'+f.color+')" data-go="fach-'+f.id+'"><span class="kz">'+esc(f.kz)+'</span><span><b>'+esc(f.name)+'</b><br><small>'+n+(n===1?' Thema':' Themen')+'</small></span></button>';
+    var n=topics(f).length, extra="";
+    if(g){
+      var fx=fachXp(f), c=giftCount(f), nextAt=STEPS[c];
+      extra='<span class="meter"><i style="width:'+(nextAt?Math.min(100,Math.round(fx/nextAt*100)):100)+'%"></i></span><small>'+fx+' XP · '+(nextAt?'Geschenk bei '+nextAt:'alle Geschenke')+'</small>';
+    }
+    h+='<button class="fach" style="--c:var(--'+f.color+')" data-go="fach-'+f.id+'"><span class="kz">'+esc(f.kz)+'</span><span><b>'+esc(f.name)+'</b><br><small>'+n+(n===1?' Thema':' Themen')+'</small></span>'+extra+'</button>';
   });
   h+='<button class="fach neu" id="neu">Fach hinzufügen</button></div>';
   h+='<form class="card" id="fform" hidden><h3>Neues Fach</h3><input class="field" id="fname" maxlength="30" placeholder="z. B. Geschichte" aria-label="Name des Fachs"><div class="swatches">';
   COLORS.forEach(function(c){h+='<button type="button" class="sw" style="--c:var(--'+c+')" data-col="'+c+'" aria-label="Farbe '+c+'" aria-pressed="'+(c===pickColor)+'"></button>';});
-  h+='</div><div class="row"><button class="btn">Speichern</button><button type="button" class="btn ghost" id="fcancel">Abbrechen</button></div></form></div>';
+  h+='</div><div class="row"><button class="btn">Speichern</button><button type="button" class="btn ghost" id="fcancel">Abbrechen</button></div></form>';
+  if(g)h+='<div class="card"><h3>Deine Sammlung</h3><p class="lead">Für jedes Fach gibt es drei Geschenke: bei '+STEPS.join(", ")+' XP.</p>'+shelf(all())+'</div>';
+  h+='</div>';
   main.innerHTML=h;
+  main.querySelectorAll("[data-view]").forEach(function(b){b.onclick=function(){own.view=b.dataset.view;save();home();};});
+  if(g){
+    var pick=document.getElementById("pick");
+    document.getElementById("ava").onclick=function(){pick.hidden=!pick.hidden;};
+    pick.querySelectorAll("[data-ava]").forEach(function(b){b.onclick=function(){own.avatar=b.dataset.ava;save();home();};});
+  }
   var form=document.getElementById("fform");
   document.getElementById("neu").onclick=function(){form.hidden=false;document.getElementById("fname").focus();};
   document.getElementById("fcancel").onclick=function(){form.hidden=true;};
@@ -156,14 +288,27 @@ function home(){
     own.subjects.push({id:newId(),name:n,kz:n.slice(0,2),color:pickColor,topics:[]}); save(); home();
   };
 }
+function shelf(list){
+  var h='<div class="shelf">';
+  list.forEach(function(f){
+    var c=giftCount(f);
+    gifts(f).forEach(function(gf,i){
+      h+='<div class="gift'+(i<c?'':' zu')+'" style="--c:var(--'+f.color+')"><span aria-hidden="true">'+gf[0]+'</span>'+(i<c?esc(gf[1]):esc(f.name)+' ab '+STEPS[i]+' XP')+'</div>';
+    });
+  });
+  return h+'</div>';
+}
 
 /* ---------- Fach: Themen ---------- */
 function subject(f){
   frame(f.name,"");
-  var h='<div class="wrap" style="--c:var(--'+f.color+')"><p class="lead">Themen in '+esc(f.name)+'</p><ul class="list">';
+  var h='<div class="wrap" style="--c:var(--'+f.color+')"><p class="lead">Themen in '+esc(f.name)+'</p>';
+  if(game())h+='<div class="card"><h3>'+fachXp(f)+' XP in '+esc(f.name)+'</h3>'+shelf([f])+'</div>';
+  h+='<ul class="list">';
   var ts=topics(f);
   ts.forEach(function(t){
-    var p=t.kind==="app"?'<i class="pill" style="font-style:normal">Lern-App</i>':(own.notes[f.id+"-"+t.id]?'<i class="pill leer" style="font-style:normal">Notizen</i>':'');
+    var k=f.id+"-"+t.id;
+    var p=t.kind==="app"?'<i class="pill">Lern-App</i>':own.done[k]?'<i class="pill ok">geschafft</i>':own.notes[k]?'<i class="pill leer">Notizen</i>':'';
     h+='<li><button class="thema" data-go="thema-'+f.id+'-'+t.id+'"><span>'+esc(t.name)+'</span>'+p+'</button></li>';
   });
   if(!ts.length)h+='<li class="lead">Noch keine Themen. Füge unten das erste hinzu.</li>';
@@ -178,7 +323,7 @@ function subject(f){
   };
   var d=document.getElementById("delf");
   if(d)twoStep(d,function(){
-    own.subjects=own.subjects.filter(function(x){return x.id!==f.id;}); delete own.topics[f.id]; save(); location.hash="";
+    own.subjects=own.subjects.filter(function(x){return x.id!==f.id;}); delete own.topics[f.id]; delete own.xp[f.id]; save(); location.hash="";
   });
 }
 function twoStep(btn,fn){
@@ -187,27 +332,176 @@ function twoStep(btn,fn){
 }
 
 /* ---------- Thema ---------- */
+var avail={};
+function available(src){ /* gibt es die eingebundene App in diesem Ordner? */
+  if(location.protocol==="file:")return Promise.resolve(true);
+  if(!avail[src])avail[src]=fetch(src,{method:"HEAD"}).then(function(r){return r.ok;}).catch(function(){return false;});
+  return avail[src];
+}
 function topic(f,t){
-  var to="fach-"+f.id;
+  var to="fach-"+f.id, here=location.hash;
   if(t.kind==="app"){
     frame(t.name,to,true);
-    ext.href=t.src;ext.hidden=false;
-    main.innerHTML='<iframe src="'+t.src+'" title="'+esc(t.name)+'"></iframe>';
+    main.innerHTML="";
+    available(t.src).then(function(ok){
+      if(location.hash!==here)return;
+      if(ok){ ext.href=t.src; ext.hidden=false; main.innerHTML='<iframe src="'+t.src+'" title="'+esc(t.name)+'"></iframe>'; }
+      else if(t.fallback==="trainer"){ frame(t.name,to); trainer(); }
+      else{ frame(t.name,to); main.innerHTML='<div class="wrap"><p class="lead">Diese Lern-App konnte nicht geladen werden. Prüfe deine Internetverbindung und versuche es noch einmal.</p></div>'; }
+    });
     return;
   }
   frame(t.name,to);
   var k=f.id+"-"+t.id, isOwn=(own.topics[f.id]||[]).some(function(x){return x.id===t.id;});
   var h='<div class="wrap" style="--c:var(--'+f.color+')"><p class="lead">Für dieses Thema gibt es noch keine Übungen. Hier kannst du eigene Notizen festhalten, zum Beispiel Merksätze oder Hausaufgaben.</p>'+
-    '<div class="card"><h3>Meine Notizen</h3><textarea class="field" id="note" aria-label="Notizen" placeholder="Schreib hier los …"></textarea><span class="stand" id="saved">Wird auf diesem Gerät gespeichert.</span></div>';
+    '<div class="card"><h3>Meine Notizen</h3><textarea class="field" id="note" aria-label="Notizen" placeholder="Schreib hier los …"></textarea><span class="lead" id="saved">Wird nur auf diesem Gerät gespeichert.</span></div>'+
+    '<button class="btn done" id="done" aria-pressed="'+!!own.done[k]+'"></button>';
   if(isOwn)h+='<button class="btn warn" id="delt">Thema löschen</button>';
   h+='</div>';
   main.innerHTML=h;
   var ta=document.getElementById("note"); ta.value=own.notes[k]||"";
   ta.oninput=function(){ if(ta.value)own.notes[k]=ta.value; else delete own.notes[k]; save(); document.getElementById("saved").textContent="Gespeichert."; };
+  var db=document.getElementById("done");
+  function label(){ db.setAttribute("aria-pressed",!!own.done[k]); db.textContent=own.done[k]?"Geschafft ✓ (antippen zum Zurücknehmen)":"Thema als geschafft markieren"+(game()?" (+"+DONE_XP+" XP)":""); }
+  label();
+  db.onclick=function(){
+    if(own.done[k])delete own.done[k]; else{ own.done[k]=1; if(game())toast("+"+DONE_XP+" XP"); }
+    save(); label();
+  };
   var d=document.getElementById("delt");
   if(d)twoStep(d,function(){
-    own.topics[f.id]=own.topics[f.id].filter(function(x){return x.id!==t.id;}); delete own.notes[k]; save(); location.hash=to;
+    own.topics[f.id]=own.topics[f.id].filter(function(x){return x.id!==t.id;}); delete own.notes[k]; delete own.done[k]; save(); location.hash=to;
   });
+}
+
+/* ---------- Trainer: Terme und Gleichungen ---------- */
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function nz(a,b){var v;do{v=rnd(a,b);}while(v===0);return v;}
+function num(n){return n<0?"−"+(-n):""+n;}
+function par(n){return n<0?"("+num(n)+")":""+n;}
+function cx(a){return (a===1?"":a===-1?"−":num(a))+"x";}
+function lin(a,b){
+  if(a===0)return num(b);
+  return cx(a)+(b===0?"":(b>0?" + ":" − ")+Math.abs(b));
+}
+function join(list){ /* [[Koeffizient, istX], …] */
+  return list.map(function(p,i){
+    var abs=Math.abs(p[0]), body=p[1]?(abs===1?"":abs)+"x":""+abs;
+    return i===0?(p[0]<0?"−":"")+body:(p[0]<0?" − ":" + ")+body;
+  }).join("");
+}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=rnd(0,i),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+var GEN={
+ terme:function(){
+   var a1,a2,b1,b2;
+   do{a1=nz(-6,9);a2=nz(-6,9);b1=nz(-9,9);b2=nz(-9,9);}while(a1+a2===0||b1+b2===0);
+   var ok=lin(a1+a2,b1+b2), seen={}, opts=[];
+   seen[ok]=1;
+   [lin(a1+a2+b1+b2,0),lin(a1+a2,b1-b2),lin(a1-a2,b1+b2),lin(a1+a2,-(b1+b2)),lin(a1*a2,b1+b2),lin(a1+a2+1,b1+b2),lin(a1+a2,b1+b2+2)]
+     .forEach(function(o){if(!seen[o]&&opts.length<3){seen[o]=1;opts.push(o);}});
+   return {frage:"Vereinfache den Term.",task:join([[a1,1],[b1,0],[a2,1],[b2,0]]),ok:ok,opts:shuffle(opts.concat(ok)),
+     weg:"Gleichartige Glieder zusammenfassen: Die x-Glieder ergeben "+cx(a1+a2)+", die Zahlen ergeben "+num(b1+b2)+"."};
+ },
+ wert:function(){
+   var a=nz(-5,9),b=nz(-10,10),x=rnd(-4,8),r=a*x+b;
+   return {frage:"Berechne den Wert des Terms für x = "+num(x)+".",task:lin(a,b),ok:r,
+     weg:num(a)+" · "+par(x)+(b>0?" + ":" − ")+Math.abs(b)+" = "+num(a*x)+(b>0?" + ":" − ")+Math.abs(b)+" = "+num(r)};
+ },
+ gleichung:function(){
+   var x=rnd(-6,9),b=nz(-12,12),a,c,d,um=(b>0?"− ":"+ ")+Math.abs(b);
+   if(Math.random()<.5){
+     a=rnd(2,9);c=a*x+b;
+     return {frage:"Löse die Gleichung. x = ?",task:lin(a,b)+" = "+num(c),ok:x,
+       weg:"Auf beiden Seiten "+um+": "+cx(a)+" = "+num(c-b)+". Dann durch "+a+" teilen: x = "+num(x)+"."};
+   }
+   c=rnd(1,5);a=c+rnd(2,5);d=(a-c)*x+b;
+   return {frage:"Löse die Gleichung. x = ?",task:lin(a,b)+" = "+lin(c,d),ok:x,
+     weg:"Auf beiden Seiten − "+cx(c)+": "+lin(a-c,b)+" = "+num(d)+". Dann "+um+": "+cx(a-c)+" = "+num(d-b)+". Durch "+(a-c)+" teilen: x = "+num(x)+"."};
+ }
+};
+var MODES=[["terme","Terme vereinfachen"],["wert","Termwert berechnen"],["gleichung","Gleichungen lösen"]];
+var mode="terme", cur=null, done=false, right=0, total=0;
+
+function trainer(){
+  var h='<div class="wrap"><div class="tabs" role="tablist">';
+  MODES.forEach(function(m){h+='<button class="tab" role="tab" data-mode="'+m[0]+'" aria-selected="'+(m[0]===mode)+'">'+m[1]+'</button>';});
+  h+='</div><div class="card" id="task"></div><div class="stand" id="stand"></div>'+
+    '<div class="card merk"><h3>Merke</h3><ul><li>Nur gleichartige Glieder darfst du zusammenfassen: 3x + 2x = 5x, aber 3x + 2 bleibt so.</li><li>Bei Gleichungen machst du auf beiden Seiten immer dasselbe.</li><li>Mach die Probe: Setze deine Lösung für x ein.</li></ul></div></div>';
+  main.innerHTML=h;
+  main.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){mode=b.dataset.mode;trainer();};});
+  next();
+}
+function next(){
+  cur=GEN[mode](); done=false;
+  var box=document.getElementById("task");
+  var h='<span class="lead">'+cur.frage+'</span><div class="aufgabe">'+cur.task+'</div>';
+  if(cur.opts){
+    h+='<div class="opts">'+cur.opts.map(function(o){return '<button class="opt">'+o+'</button>';}).join("")+'</div>';
+  }else{
+    h+='<form class="row" id="aform"><input class="field" id="ans" inputmode="text" autocomplete="off" placeholder="Deine Antwort" aria-label="Deine Antwort"><button class="btn">Prüfen</button></form>';
+  }
+  h+='<div id="fb"></div>';
+  box.innerHTML=h;
+  if(cur.opts){
+    box.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){
+      if(done)return;
+      var good=b.textContent===cur.ok;
+      b.classList.add(good?"ok":"no");
+      if(!good)box.querySelectorAll(".opt").forEach(function(o){if(o.textContent===cur.ok)o.classList.add("ok");});
+      result(good);
+    };});
+  }else{
+    document.getElementById("aform").onsubmit=function(e){
+      e.preventDefault(); if(done)return;
+      var raw=document.getElementById("ans").value.replace(/[−–]/g,"-").replace(",",".").replace(/\s|x=/gi,"");
+      if(raw===""||isNaN(Number(raw))){document.getElementById("fb").innerHTML='<div class="fb no">Bitte gib eine Zahl ein, zum Beispiel 4 oder -3.</div>';return;}
+      result(Number(raw)===cur.ok);
+    };
+  }
+  stand();
+}
+function result(good){
+  done=true; total++; if(good)right++;
+  if(good&&game()){own.xp.mathe=(own.xp.mathe||0)+5;save();toast("+5 XP");}
+  document.getElementById("fb").innerHTML='<div class="fb'+(good?'':' no')+'"><b>'+(good?'Richtig!':'Noch nicht. Richtig ist '+(typeof cur.ok==="number"?num(cur.ok):cur.ok)+'.')+'</b>'+cur.weg+'</div><div class="row" style="margin-top:12px"><button class="btn" id="weiter">Nächste Aufgabe</button></div>';
+  var w=document.getElementById("weiter"); w.onclick=next; w.focus();
+  stand();
+}
+function stand(){document.getElementById("stand").textContent=total?right+" von "+total+" richtig":"Los geht's mit der ersten Aufgabe.";}
+
+/* ---------- Info: Datenschutz, Installieren, Zurücksetzen ---------- */
+var PRIVACY='<p>Diese App braucht keine Anmeldung. Dein Fortschritt, deine Figur und deine Notizen werden <b>nur auf diesem Gerät</b> in deinem Browser gespeichert.</p>'+
+  '<ul><li>Nichts davon wird an die Schule, an Lehrkräfte oder an andere gesendet.</li><li>Keine Werbung, keine Analyse, keine fremden Schriften oder Skripte.</li>'+
+  '<li>Die Seite wird über GitHub Pages geladen. Dabei verarbeitet GitHub wie jeder Webserver technische Daten, zum Beispiel die IP-Adresse.</li>'+
+  '<li>Löschst du die Browserdaten oder nimmst du ein anderes Gerät, ist dein Fortschritt dort nicht vorhanden.</li></ul>';
+var installEvt=null;
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();installEvt=e;var b=document.getElementById("inst");if(b)b.hidden=false;});
+function help(){
+  frame("Info","");
+  main.innerHTML='<div class="wrap">'+
+    '<div class="card"><h3>Datenschutz</h3>'+PRIVACY+'</div>'+
+    '<div class="card"><h3>Als App auf den Startbildschirm</h3>'+
+      '<button class="btn" id="inst"'+(installEvt?'':' hidden')+'>App jetzt installieren</button>'+
+      '<p><b>iPhone und iPad (Safari)</b></p><ol><li>Unten auf das Teilen-Symbol tippen (Kästchen mit Pfeil nach oben).</li><li>„Zum Home-Bildschirm“ wählen.</li><li>Auf „Hinzufügen“ tippen.</li></ol>'+
+      '<p><b>Android (Chrome)</b></p><ol><li>Oben rechts auf die drei Punkte tippen.</li><li>„App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.</li></ol>'+
+      '<p><b>Computer (Chrome oder Edge)</b></p><ol><li>Rechts in der Adresszeile auf das Installieren-Symbol klicken.</li><li>Oder im Menü „App installieren“ wählen.</li></ol>'+
+      '<p class="lead">Nach dem ersten Öffnen mit Internet läuft die App auch ohne Internet.</p></div>'+
+    '<div class="card"><h3>Als Datei herunterladen</h3><ol><li>Auf GitHub das Projekt „Klasse-8.5“ öffnen.</li><li>Auf „Code“ und dann „Download ZIP“ klicken.</li><li>Die ZIP-Datei entpacken und <b>index.html</b> öffnen.</li></ol><p class="lead">So läuft die App komplett ohne Internet, zum Beispiel vom USB-Stick.</p></div>'+
+    '<div class="card"><h3>Fortschritt löschen</h3><p class="lead">Löscht Figur, Punkte, eigene Fächer, Themen und Notizen dieser Startseite auf diesem Gerät. Die Mathe- und die NaWi-App haben unter „Ich“ einen eigenen Knopf zum Zurücksetzen.</p><button class="btn warn" id="reset">Alles löschen</button></div></div>';
+  var b=document.getElementById("inst");
+  b.onclick=function(){ if(!installEvt)return; installEvt.prompt(); installEvt=null; b.hidden=true; };
+  twoStep(document.getElementById("reset"),function(){ try{localStorage.removeItem(KEY);}catch(e){} location.hash=""; location.reload(); });
+}
+function welcome(){
+  var o=document.createElement("div"); o.className="overlay";
+  o.innerHTML='<div class="card" role="dialog" aria-modal="true" aria-labelledby="wt"><h2 id="wt">Willkommen in der Lern-App der 8.5</h2>'+PRIVACY+
+    '<p>Unter <b>Info</b> oben rechts findest du das jederzeit wieder. Dort steht auch, wie du die App auf den Startbildschirm legst.</p>'+
+    '<h3>Wie möchtest du starten?</h3><div class="row"><button class="btn" data-w="einfach">Einfache Ansicht</button><button class="btn" data-w="spiel">Spiel-Ansicht mit Figur und Level</button></div>'+
+    '<p class="lead">Du kannst später jederzeit wechseln.</p></div>';
+  document.body.appendChild(o);
+  o.querySelectorAll("[data-w]").forEach(function(b){b.onclick=function(){own.view=b.dataset.w;save();o.remove();route();};});
+  o.querySelector("button").focus();
 }
 
 /* ---------- Navigation ---------- */
@@ -216,6 +510,7 @@ main.addEventListener("click",function(e){
 });
 function route(){
   var p=location.hash.replace(/^#/,"").split("-"), f=fach(p[1]);
+  if(p[0]==="hilfe")return help();
   if(p[0]==="fach"&&f)return subject(f);
   if(p[0]==="thema"&&f){
     var t=topics(f).filter(function(x){return x.id===p[2];})[0];
@@ -225,6 +520,12 @@ function route(){
 }
 window.addEventListener("hashchange",route);
 route();
+if(!own.view)welcome();
+
+/* Offline-Betrieb: nur wenn die Seite über https läuft und sw.js vorhanden ist */
+if("serviceWorker" in navigator&&location.protocol==="https:"){
+  try{navigator.serviceWorker.register("sw.js").catch(function(){});}catch(e){}
+}
 })();
 </script>
 </body>
