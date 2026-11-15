@@ -250,6 +250,7 @@ function home(){
   frame("Klasse 8.5",null);
   var g=game(), h='<div class="wrap"><div><div class="klasse">Klasse 8.5</div><p class="lead">Wähle ein Fach. Danach siehst du die Themen.</p></div>'+
     '<div class="seg" role="group" aria-label="Ansicht"><button data-view="einfach" aria-pressed="'+!g+'">Einfache Ansicht</button><button data-view="spiel" aria-pressed="'+g+'">Spiel-Ansicht</button></div>';
+  if(!standalone)h+='<button class="btn ghost" id="hinst">App auf den Startbildschirm legen</button>';
   if(g){
     var x=totalXp(), L=levelOf(x), fresh=newGifts();
     h+='<section class="hero"><button class="ava" id="ava" aria-label="Figur ändern">'+own.avatar+'</button><div><b>Level '+L.n+'</b><span class="meter"><i style="width:'+L.pct+'%"></i></span><small>'+x+' XP · noch '+(L.to-x)+' bis Level '+(L.n+1)+'</small></div></section>'+
@@ -278,6 +279,7 @@ function home(){
     document.getElementById("ava").onclick=function(){pick.hidden=!pick.hidden;};
     pick.querySelectorAll("[data-ava]").forEach(function(b){b.onclick=function(){own.avatar=b.dataset.ava;save();home();};});
   }
+  var hi=document.getElementById("hinst"); if(hi)hi.onclick=install;
   var form=document.getElementById("fform");
   document.getElementById("neu").onclick=function(){form.hidden=false;document.getElementById("fname").focus();};
   document.getElementById("fcancel").onclick=function(){form.hidden=true;};
@@ -475,7 +477,12 @@ var PRIVACY='<p>Diese App braucht keine Anmeldung. Dein Fortschritt, deine Figur
   '<ul><li>Nichts davon wird an die Schule, an Lehrkräfte oder an andere gesendet.</li><li>Keine Werbung, keine Analyse, keine fremden Schriften oder Skripte.</li>'+
   '<li>Die Seite wird über GitHub Pages geladen. Dabei verarbeitet GitHub wie jeder Webserver technische Daten, zum Beispiel die IP-Adresse.</li>'+
   '<li>Löschst du die Browserdaten oder nimmst du ein anderes Gerät, ist dein Fortschritt dort nicht vorhanden.</li></ul>';
-var installEvt=null;
+var installEvt=null, standalone=!!navigator.standalone;
+try{standalone=standalone||matchMedia("(display-mode: standalone)").matches;}catch(e){}
+function install(){ /* Wo der Browser es erlaubt, öffnet sich direkt das Installieren-Fenster; sonst die Anleitung */
+  if(installEvt){ installEvt.prompt(); installEvt=null; }
+  else location.hash="hilfe";
+}
 window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();installEvt=e;var b=document.getElementById("inst");if(b)b.hidden=false;});
 function help(){
   frame("Info","");
@@ -483,6 +490,7 @@ function help(){
     '<div class="card"><h3>Datenschutz</h3>'+PRIVACY+'</div>'+
     '<div class="card"><h3>Als App auf den Startbildschirm</h3>'+
       '<button class="btn" id="inst"'+(installEvt?'':' hidden')+'>App jetzt installieren</button>'+
+      '<p class="lead">Auf Android und am Computer installiert der Knopf die App direkt. Auf iPhone und iPad erlaubt Apple das nicht per Knopf, dort geht es in drei Schritten von Hand.</p>'+
       '<p><b>iPhone und iPad (Safari)</b></p><ol><li>Unten auf das Teilen-Symbol tippen (Kästchen mit Pfeil nach oben).</li><li>„Zum Home-Bildschirm“ wählen.</li><li>Auf „Hinzufügen“ tippen.</li></ol>'+
       '<p><b>Android (Chrome)</b></p><ol><li>Oben rechts auf die drei Punkte tippen.</li><li>„App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.</li></ol>'+
       '<p><b>Computer (Chrome oder Edge)</b></p><ol><li>Rechts in der Adresszeile auf das Installieren-Symbol klicken.</li><li>Oder im Menü „App installieren“ wählen.</li></ol>'+
@@ -490,7 +498,7 @@ function help(){
     '<div class="card"><h3>Als Datei herunterladen</h3><ol><li>Auf GitHub das Projekt „Klasse-8.5“ öffnen.</li><li>Auf „Code“ und dann „Download ZIP“ klicken.</li><li>Die ZIP-Datei entpacken und <b>index.html</b> öffnen.</li></ol><p class="lead">So läuft die App komplett ohne Internet, zum Beispiel vom USB-Stick.</p></div>'+
     '<div class="card"><h3>Fortschritt löschen</h3><p class="lead">Löscht Figur, Punkte, eigene Fächer, Themen und Notizen dieser Startseite auf diesem Gerät. Die Mathe- und die NaWi-App haben unter „Ich“ einen eigenen Knopf zum Zurücksetzen.</p><button class="btn warn" id="reset">Alles löschen</button></div></div>';
   var b=document.getElementById("inst");
-  b.onclick=function(){ if(!installEvt)return; installEvt.prompt(); installEvt=null; b.hidden=true; };
+  b.onclick=function(){ install(); b.hidden=true; };
   twoStep(document.getElementById("reset"),function(){ try{localStorage.removeItem(KEY);}catch(e){} location.hash=""; location.reload(); });
 }
 function welcome(){
