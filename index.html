@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lern-App Klasse 8.5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: Stundenplan-Idee. Jedes Fach ist eine Kachel mit Kürzel und Heftfarbe; darunter Themenliste, dann Inhalt. */
+:root{
+  --bg:#eef1f6; --surface:#ffffff; --ink:#17203a; --muted:#5b6480; --line:#d5dbe8; --accent:#2747d8;
+  --good:#1f8a4c; --bad:#c8362e;
+  --blau:#2f5fe0; --rot:#d6453d; --gelb:#c98a00; --gruen:#2f9e5b; --violett:#7a4fd0; --tuerkis:#1497a8;
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"Atkinson Hyperlegible",Verdana,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111522; --surface:#1b2133; --ink:#e9ecf5; --muted:#9aa3bd; --line:#2e3650; --accent:#8ea2ff;
+    --good:#5fd08e; --bad:#ff8a80; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111522; --surface:#1b2133; --ink:#e9ecf5; --muted:#9aa3bd; --line:#2e3650; --accent:#8ea2ff;
+  --good:#5fd08e; --bad:#ff8a80; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.45;display:flex;flex-direction:column}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.bar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar h1{font-size:1.15rem;flex:1;min-width:0;overflow-wrap:anywhere}
+.back{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 12px;font-weight:700}
+.bar a{color:var(--accent);font-size:.85rem}
+main{flex:1;min-height:0;overflow:auto;padding:20px 16px 40px}
+main.full{padding:0;overflow:hidden}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.lead{color:var(--muted);margin:0}
+.klasse{font-size:2.2rem;font-weight:800}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.fach{display:flex;flex-direction:column;gap:14px;align-items:flex-start;text-align:left;padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--surface);border-bottom:5px solid var(--c)}
+.kz{font-family:var(--display);font-weight:800;font-size:1.3rem;color:#fff;background:var(--c);border-radius:10px;min-width:48px;height:48px;padding:0 8px;display:grid;place-items:center}
+.fach b{font-family:var(--display);font-size:1.15rem;overflow-wrap:anywhere}
+.fach small{color:var(--muted)}
+.fach.neu{border-style:dashed;border-bottom:1px dashed var(--line);justify-content:center;align-items:center;color:var(--muted);min-height:120px}
+
+.list{display:flex;flex-direction:column;gap:8px;list-style:none;margin:0;padding:0}
+.thema{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:14px;border-radius:12px;border:1px solid var(--line);border-left:5px solid var(--c);background:var(--surface)}
+.thema span{flex:1;overflow-wrap:anywhere}
+.pill{font-size:.75rem;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--c);color:#fff;white-space:nowrap}
+.pill.leer{background:transparent;color:var(--muted);border:1px solid var(--line)}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.card h3{font-size:1.05rem}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.field{flex:1;min-width:140px;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+textarea.field{min-height:150px;width:100%;resize:vertical}
+.btn{padding:11px 16px;border-radius:10px;border:0;background:var(--accent);color:var(--bg);font-weight:700}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.warn{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.sw{width:36px;height:36px;border-radius:50%;border:3px solid var(--surface);background:var(--c);box-shadow:0 0 0 1px var(--line)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink)}
+
+iframe{width:100%;height:100%;border:0;display:block;background:var(--bg)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header class="bar">
+  <button class="back" id="back" hidden>Zurück</button>
+  <h1 id="title">Klasse 8.5</h1>
+  <a id="ext" href="#" target="_blank" rel="noopener" hidden>Einzeln öffnen</a>
+</header>
+<main id="main"></main>
+
+<script>
+(function(){
+"use strict";
+var COLORS=["blau","rot","gelb","gruen","violett","tuerkis"];
+var FAECHER=[
+ {id:"mathe",name:"Mathe",kz:"Ma",color:"blau",topics:[
+   {id:"terme",name:"Terme und Gleichungen",kind:"app",src:"mathe/index.html"},
+   {id:"prozent",name:"Prozent- und Zinsrechnung"},
+   {id:"funktionen",name:"Lineare Funktionen"},
+   {id:"geometrie",name:"Flächen und Körper"},
+   {id:"zufall",name:"Wahrscheinlichkeit"}]},
+ {id:"deutsch",name:"Deutsch",kz:"De",color:"rot",topics:[
+   {id:"eroerterung",name:"Erörterung"},
+   {id:"kurzgeschichte",name:"Kurzgeschichten"},
+   {id:"balladen",name:"Balladen"},
+   {id:"konjunktiv",name:"Konjunktiv und indirekte Rede"},
+   {id:"komma",name:"Kommasetzung"}]},
+ {id:"englisch",name:"Englisch",kz:"En",color:"gelb",topics:[
+   {id:"tenses",name:"Simple Past und Present Perfect"},
+   {id:"ifclauses",name:"If-Clauses"},
+   {id:"passive",name:"Passive"},
+   {id:"reported",name:"Reported Speech"},
+   {id:"vokabeln",name:"Vokabeln"}]},
+ {id:"nawi",name:"NaWi",kz:"NW",color:"gruen",topics:[
+   {id:"nahrung",name:"Der Weg der Nahrung",kind:"app",src:"nawi/index.html"},
+   {id:"ernaehrung",name:"Ernährung und Nährstoffe"},
+   {id:"atmung",name:"Atmung und Blutkreislauf"},
+   {id:"stoffe",name:"Stoffe und ihre Eigenschaften"},
+   {id:"strom",name:"Elektrischer Stromkreis"}]}
+];
+
+/* Eigene Fächer, Themen und Notizen: nur auf diesem Gerät gespeichert */
+var KEY="klasse85-v1", own={subjects:[],topics:{},notes:{}};
+try{var s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s&&s.subjects){own=s; own.topics=own.topics||{}; own.notes=own.notes||{};}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(own));}catch(e){}}
+
+function esc(t){return String(t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function all(){return FAECHER.concat(own.subjects);}
+function fach(id){return all().filter(function(f){return f.id===id;})[0];}
+function topics(f){return (f.topics||[]).concat(own.topics[f.id]||[]);}
+function isOwnSubject(id){return own.subjects.some(function(f){return f.id===id;});}
+function newId(){return "x"+Date.now().toString(36)+Math.floor(Math.random()*1296).toString(36);}
+
+var main=document.getElementById("main"), title=document.getElementById("title"),
+    back=document.getElementById("back"), ext=document.getElementById("ext"), backTo="";
+back.onclick=function(){location.hash=backTo;};
+
+function frame(t,to,full){
+  title.textContent=t; backTo=to; back.hidden=(to===null); ext.hidden=true;
+  main.className=full?"full":""; main.scrollTop=0;
+}
+
+/* ---------- Start: Fächer ---------- */
+var pickColor="violett";
+function home(){
+  frame("Klasse 8.5",null);
+  var h='<div class="wrap"><div><div class="klasse" style="font-family:var(--display)">Klasse 8.5</div><p class="lead">Wähle ein Fach. Danach siehst du die Themen.</p></div><div class="grid">';
+  all().forEach(function(f){
+    var n=topics(f).length;
+    h+='<button class="fach" style="--c:var(--'+f.color+')" data-go="fach-'+f.id+'"><span class="kz">'+esc(f.kz)+'</span><span><b>'+esc(f.name)+'</b><br><small>'+n+(n===1?' Thema':' Themen')+'</small></span></button>';
+  });
+  h+='<button class="fach neu" id="neu">Fach hinzufügen</button></div>';
+  h+='<form class="card" id="fform" hidden><h3>Neues Fach</h3><input class="field" id="fname" maxlength="30" placeholder="z. B. Geschichte" aria-label="Name des Fachs"><div class="swatches">';
+  COLORS.forEach(function(c){h+='<button type="button" class="sw" style="--c:var(--'+c+')" data-col="'+c+'" aria-label="Farbe '+c+'" aria-pressed="'+(c===pickColor)+'"></button>';});
+  h+='</div><div class="row"><button class="btn">Speichern</button><button type="button" class="btn ghost" id="fcancel">Abbrechen</button></div></form></div>';
+  main.innerHTML=h;
+  var form=document.getElementById("fform");
+  document.getElementById("neu").onclick=function(){form.hidden=false;document.getElementById("fname").focus();};
+  document.getElementById("fcancel").onclick=function(){form.hidden=true;};
+  form.querySelectorAll(".sw").forEach(function(b){b.onclick=function(){pickColor=b.dataset.col;form.querySelectorAll(".sw").forEach(function(x){x.setAttribute("aria-pressed",x===b);});};});
+  form.onsubmit=function(e){
+    e.preventDefault();
+    var n=document.getElementById("fname").value.trim(); if(!n)return;
+    own.subjects.push({id:newId(),name:n,kz:n.slice(0,2),color:pickColor,topics:[]}); save(); home();
+  };
+}
+
+/* ---------- Fach: Themen ---------- */
+function subject(f){
+  frame(f.name,"");
+  var h='<div class="wrap" style="--c:var(--'+f.color+')"><p class="lead">Themen in '+esc(f.name)+'</p><ul class="list">';
+  var ts=topics(f);
+  ts.forEach(function(t){
+    var p=t.kind==="app"?'<i class="pill" style="font-style:normal">Lern-App</i>':(own.notes[f.id+"-"+t.id]?'<i class="pill leer" style="font-style:normal">Notizen</i>':'');
+    h+='<li><button class="thema" data-go="thema-'+f.id+'-'+t.id+'"><span>'+esc(t.name)+'</span>'+p+'</button></li>';
+  });
+  if(!ts.length)h+='<li class="lead">Noch keine Themen. Füge unten das erste hinzu.</li>';
+  h+='</ul><form class="card" id="tform"><h3>Thema hinzufügen</h3><div class="row"><input class="field" id="tname" maxlength="60" placeholder="Name des Themas" aria-label="Name des Themas"><button class="btn">Hinzufügen</button></div></form>';
+  if(isOwnSubject(f.id))h+='<button class="btn warn" id="delf">Fach löschen</button>';
+  h+='</div>';
+  main.innerHTML=h;
+  document.getElementById("tform").onsubmit=function(e){
+    e.preventDefault();
+    var n=document.getElementById("tname").value.trim(); if(!n)return;
+    (own.topics[f.id]=own.topics[f.id]||[]).push({id:newId(),name:n}); save(); subject(f);
+  };
+  var d=document.getElementById("delf");
+  if(d)twoStep(d,function(){
+    own.subjects=own.subjects.filter(function(x){return x.id!==f.id;}); delete own.topics[f.id]; save(); location.hash="";
+  });
+}
+function twoStep(btn,fn){
+  var armed=false;
+  btn.onclick=function(){ if(armed){fn();return;} armed=true; btn.textContent="Wirklich löschen? Nochmal tippen"; };
+}
+
+/* ---------- Thema ---------- */
+function topic(f,t){
+  var to="fach-"+f.id;
+  if(t.kind==="app"){
+    frame(t.name,to,true);
+    ext.href=t.src;ext.hidden=false;
+    main.innerHTML='<iframe src="'+t.src+'" title="'+esc(t.name)+'"></iframe>';
+    return;
+  }
+  frame(t.name,to);
+  var k=f.id+"-"+t.id, isOwn=(own.topics[f.id]||[]).some(function(x){return x.id===t.id;});
+  var h='<div class="wrap" style="--c:var(--'+f.color+')"><p class="lead">Für dieses Thema gibt es noch keine Übungen. Hier kannst du eigene Notizen festhalten, zum Beispiel Merksätze oder Hausaufgaben.</p>'+
+    '<div class="card"><h3>Meine Notizen</h3><textarea class="field" id="note" aria-label="Notizen" placeholder="Schreib hier los …"></textarea><span class="stand" id="saved">Wird auf diesem Gerät gespeichert.</span></div>';
+  if(isOwn)h+='<button class="btn warn" id="delt">Thema löschen</button>';
+  h+='</div>';
+  main.innerHTML=h;
+  var ta=document.getElementById("note"); ta.value=own.notes[k]||"";
+  ta.oninput=function(){ if(ta.value)own.notes[k]=ta.value; else delete own.notes[k]; save(); document.getElementById("saved").textContent="Gespeichert."; };
+  var d=document.getElementById("delt");
+  if(d)twoStep(d,function(){
+    own.topics[f.id]=own.topics[f.id].filter(function(x){return x.id!==t.id;}); delete own.notes[k]; save(); location.hash=to;
+  });
+}
+
+/* ---------- Navigation ---------- */
+main.addEventListener("click",function(e){
+  var b=e.target.closest("[data-go]"); if(b)location.hash=b.dataset.go;
+});
+function route(){
+  var p=location.hash.replace(/^#/,"").split("-"), f=fach(p[1]);
+  if(p[0]==="fach"&&f)return subject(f);
+  if(p[0]==="thema"&&f){
+    var t=topics(f).filter(function(x){return x.id===p[2];})[0];
+    if(t)return topic(f,t);
+  }
+  home();
+}
+window.addEventListener("hashchange",route);
+route();
+})();
+</script>
+</body>
+</html>

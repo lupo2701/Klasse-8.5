@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Der Weg der Nahrung – Lern-App</title>
+  <meta name="description" content="Interaktive Lern-App zur Verdauung für die Sekundarstufe I: Lerntexte, Aufgabenkarten, Experimente, Quiz und Lexikon.">
+  <meta name="theme-color" content="#fbf6ef">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍎</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="#/" class="brand" aria-label="Startseite">
+      <span class="brand-mark" aria-hidden="true">🍎</span>
+      <span class="brand-text">Der Weg der Nahrung</span>
+    </a>
+    <a href="#/ich" class="xpbar" id="xpbar" aria-label="Level und Erfolge"></a>
+    <nav class="topnav" aria-label="Hauptnavigation">
+      <a href="#/" data-nav="home">Start</a>
+      <a href="#/themen" data-nav="lernen">Lernen</a>
+      <a href="#/quiz" data-nav="quiz">Quiz</a>
+      <a href="#/ich" data-nav="ich">Ich</a>
+    </nav>
+  </header>
+
+  <main id="app" tabindex="-1"></main>
+
+  <nav class="bottomnav" aria-label="Navigation">
+    <a href="#/" data-nav="home"><span aria-hidden="true">🏠</span>Start</a>
+    <a href="#/themen" data-nav="lernen"><span aria-hidden="true">📖</span>Lernen</a>
+    <a href="#/quiz" data-nav="quiz"><span aria-hidden="true">❓</span>Quiz</a>
+    <a href="#/ich" data-nav="ich"><span aria-hidden="true">🙂</span>Ich</a>
+  </nav>
+
+  <div id="sheet" class="sheet" hidden>
+    <div class="sheet-backdrop" data-close></div>
+    <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <button class="sheet-x" data-close aria-label="Schließen">✕</button>
+      <div id="sheet-body"></div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/figures.js"></script>
+  <script src="js/zucker.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
