@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acting green · Englisch Klasse 8 · Workbook S. 18–21</title>
+<meta name="theme-color" content="#c98a00">
+<style>
+:root{
+  --bg:#f7f4ec; --surface:#fff; --ink:#1d2236; --muted:#5d6479; --line:#e3ddcc; --accent:#c98a00; --accent-d:#9c6b00;
+  --green:#2f9e5b; --green-bg:#e3f5ea; --bad:#c8362e; --bad-bg:#fdecea; --warn-bg:#fff6dc;
+  --display:"Avenir Next","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,Verdana,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3{font-family:var(--display);line-height:1.2;margin:0 0 .4em}
+h1{font-size:1.6rem} h2{font-size:1.3rem} h3{font-size:1.05rem}
+p{margin:0 0 .7em}
+.wrap{max-width:820px;margin:0 auto;padding:14px 14px 60px}
+.muted{color:var(--muted)} .small{font-size:.88rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(60,40,0,.05)}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.top .grow{flex:1;min-width:0}
+.xp{background:var(--accent);color:#fff;font-weight:800;border-radius:999px;padding:4px 12px;white-space:nowrap}
+.bar{height:12px;background:#ece6d3;border-radius:999px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#6fd29a);border-radius:999px;transition:width .4s}
+.hero{background:linear-gradient(135deg,#fff 40%,#eaf6ee)}
+.hero .leaf{font-size:2.6rem;float:right;margin-left:8px}
+.list{display:grid;gap:8px}
+.ex{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;transition:transform .12s}
+.ex:hover{transform:translateX(3px)}
+.num{width:42px;height:42px;border-radius:12px;background:#3a3f52;color:#fff;font-weight:800;display:grid;place-items:center;flex-shrink:0;font-family:var(--display)}
+.ex.done .num{background:var(--green)}
+.ex b{display:block}
+.st{font-size:.82rem;font-weight:800;white-space:nowrap;color:var(--muted)}
+.ex.done .st{color:var(--green)}
+.back{display:inline-block;margin-bottom:8px;color:var(--muted);font-weight:700;text-decoration:none}
+.task{font-weight:700;font-size:1.05rem}
+.help{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px}
+.btn{text-decoration:none;color:inherit;display:inline-block;border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 16px;font-weight:800;box-shadow:0 3px 0 var(--line)}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.main{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 3px 0 var(--accent-d)}
+.btn.soft{background:#f6f2e6;box-shadow:none}
+.btn.on{background:var(--warn-bg);border-color:#ecd38b}
+.de{background:var(--warn-bg);border:2px solid #f0dc9c;border-radius:14px;padding:10px 14px;margin:8px 0}
+.de ul{margin:4px 0 0;padding-left:20px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.actions .grow{flex:1}
+/* Felder */
+.rows{display:grid;gap:8px}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:6px 0;border-bottom:1px dashed var(--line)}
+.row:last-child{border-bottom:0}
+.lab{min-width:150px;flex:1}
+.lab .n{color:var(--muted);font-weight:700;margin-right:4px}
+.in{border:2px solid #d9d2bd;border-radius:10px;padding:7px 10px;background:#fff;min-width:0;width:220px;max-width:100%;outline:none}
+.in:focus{border-color:var(--accent);box-shadow:0 0 0 3px #f6e7bf}
+.in.ok{border-color:var(--green);background:var(--green-bg)}
+.in.no{border-color:var(--bad);background:var(--bad-bg)}
+.in.ex{background:#f3f0e6;color:var(--muted)}
+.in.wide{width:100%}
+select.in{width:auto;min-width:150px}
+.sol{font-size:.86rem;color:var(--green);font-weight:700;width:100%}
+.inline{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.sent{line-height:2.4}
+.sent select{margin:0 4px}
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px;padding:10px;background:#f6f2e6;border-radius:12px}
+.chip{border:1.5px solid #d9d2bd;background:#fff;border-radius:10px;padding:5px 11px;font-weight:600}
+.chip.used{opacity:.35}
+.chip.sel{background:var(--green);border-color:var(--green);color:#fff}
+.chip.pick{background:#3a3f52;color:#fff;border-color:#3a3f52}
+.chip.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.chip.miss{outline:3px dashed var(--green)}
+.mirror{transform:scaleX(-1);display:inline-block}
+.prep{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.pbox{border:1.5px solid var(--line);border-radius:14px;padding:10px;text-align:center;background:#fffdf7}
+.pbox .in{width:120px;text-align:center;border-radius:999px;font-weight:800}
+.pbox p{margin:6px 0 0}
+.order{border:1.5px solid var(--line);border-radius:14px;padding:10px;margin-bottom:10px}
+.order.ok{border-color:var(--green);background:var(--green-bg)}
+.order.no{border-color:var(--bad)}
+.built{min-height:42px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;border-bottom:2px solid #d9d2bd;padding:4px 0 8px;margin:6px 0}
+.built .ph{color:var(--muted);font-size:.9rem}
+.phrases{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.phrase{background:var(--green-bg);border:1.5px solid var(--green);border-radius:10px;padding:5px 10px;font-weight:700}
+.phrase button{border:0;background:none;color:var(--muted);margin-left:4px}
+textarea.in{width:100%;min-height:200px;resize:vertical;line-height:1.5}
+.checks{list-style:none;padding:0;margin:8px 0}
+.checks li{padding:3px 0}
+.fb{border-radius:12px;padding:10px 12px;margin-top:12px;font-weight:700}
+.fb.ok{background:var(--green-bg);color:#17643a}
+.fb.no{background:var(--bad-bg);color:#8d241e}
+.toast{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 16px;border-radius:12px;font-weight:700;z-index:9;animation:pop .3s}
+.float{position:fixed;z-index:9;font-weight:900;color:var(--accent);pointer-events:none;animation:up 1s forwards}
+@keyframes up{to{transform:translateY(-50px);opacity:0}}
+@keyframes pop{from{transform:translate(-50%,-10px);opacity:0}}
+.shake{animation:sh .35s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:8}
+@media (max-width:520px){.lab{min-width:100%}.in{width:100%}select.in{width:100%}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+<canvas id="confetti"></canvas>
+<script>
+"use strict";
+/* Acting green – Workbook Unit 1, Seiten 18–21, Aufgaben 10–18 als Übungen zum Ausfüllen.
+   Fortschritt und Eingaben bleiben im Browser (localStorage). xp wird von der Klasse-8.5-Startseite mitgezählt. */
+var KEY = "actinggreen-v1";
+var S = {xp:0, done:{}, solved:{}, vals:{}, de:false};
+try { var d = JSON.parse(localStorage.getItem(KEY) || "null"); if (d) for (var k in S) if (d[k] !== undefined) S[k] = d[k]; } catch (e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function esc(t){ return String(t).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function norm(t){
+  return String(t||"").toLowerCase().replace(/[’`´]/g,"'").replace(/ä/g,"ae").replace(/ö/g,"oe").replace(/ü/g,"ue").replace(/ß/g,"ss")
+    .replace(/[.!?,;:]+$/,"").replace(/\(|\)/g,"").replace(/\s+/g," ").trim();
+}
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;} return a; }
+var app = document.getElementById("app");
+
+/* ---------------- Aufgaben ---------------- */
+var MODALS = ["can","can't","could","couldn't","must","must not","have to","don't have to","needn't","should","should not","want to","be able to","are allowed to","are not allowed to"];
+var EX = [
+ {id:"e10", nr:10, page:18, title:"Trash bag", type:"fill",
+  task:"Read the words and match them with the German meaning. Be careful: there are more words than you need.",
+  de:["Im Müllbeutel stehen englische Wörter (im Heft spiegelverkehrt).","Schreibe zu jedem deutschen Wort das passende englische Wort.","Tipp: Tippe ein Wort im Kasten an – es wird ins Feld eingesetzt. Drei Wörter brauchst du nicht."],
+  bank:["recycle","print (out)","turn off","take a shower","dictionary","clean","plant","close","save","environment","energy","heating"],
+  items:[
+   {q:"wiederverwerten", a:["recycle"], ex:true},
+   {q:"sauber", a:["clean"]},
+   {q:"duschen", a:["take a shower"]},
+   {q:"pflanzen", a:["plant"]},
+   {q:"schließen", a:["close"]},
+   {q:"Heizung", a:["heating"]},
+   {q:"Umwelt", a:["environment"]},
+   {q:"Energie, Kraft", a:["energy"]},
+   {q:"(aus)drucken", a:["print out","print","print (out)"]}]},
+ {id:"e11", nr:11, page:18, title:"Prepositions – at, in, next to, on", type:"prep",
+  task:"Find the matching preposition and write it down in the circle.",
+  de:["Schreibe in jeden Kreis die passende Präposition: at, in, next to oder on.","Jede Präposition passt zu zwei Kästchen.","Tipp: in = in, drin · on = auf · at = an, bei · next to = neben"],
+  bank:["at","in","next to","on"],
+  items:[
+   {q:"picture A, the picture, the middle", a:["in"]},
+   {q:"the left, the right, a motorbike", a:["on"]},
+   {q:"the bottom, the top", a:["at"]},
+   {q:"the bus, the traffic light", a:["next to"]},
+   {q:"the playground, the street, front of", a:["in"]},
+   {q:"the street, foot, the stairs", a:["on"]},
+   {q:"the bus stop, school", a:["at"]},
+   {q:"the shop, the girl, the bin", a:["next to"]}]},
+ {id:"e12", nr:12, page:19, title:"About a picture", type:"order",
+  task:"Put the words in the right order and complete the sentences. What can you see in the picture on page 23 in your textbook? What are the people doing?",
+  de:["Tippe die Wörter in der richtigen Reihenfolge an. So entsteht ein Satzanfang.","Dann schau dir das Bild im Textbook auf Seite 23 an und schreibe den Satz zu Ende.","Tipp: Englische Sätze: wer/was – tut – wo. Ortsangaben (In the middle …) dürfen auch am Anfang stehen."],
+  items:[
+   {w:["there","is","in","the picture"], a:["in the picture there is","there is in the picture"], ex:true},
+   {w:["In","I","the middle","can","see"], a:["in the middle i can see","i can see in the middle"]},
+   {w:["at the top","is","there","of the picture"], a:["at the top of the picture there is","there is at the top of the picture"]},
+   {w:["at","can","see","the","bottom","I"], a:["at the bottom i can see","i can see at the bottom"]},
+   {w:["is","the woman","the car","in"], a:["the woman is in the car","in the car is the woman"]},
+   {w:["the grey bag","is","the boy","with"], a:["the boy with the grey bag is"]},
+   {w:["the girl","is","the red shirt","with"], a:["the girl with the red shirt is"]},
+   {w:["next to","her","can","a …","see","I"], a:["next to her i can see a …","i can see a … next to her"]},
+   {w:["on","left","the","there","are"], a:["on the left there are","there are on the left"]},
+   {w:["are","in the picture","the children","all"], a:["all the children in the picture are","all the children are in the picture"]}]},
+ {id:"e13a", nr:"13a", page:19, title:"Acting green – a) verbs", type:"pick",
+  task:"a) Colour the verbs in green.",
+  de:["Tippe alle Verben (Tu-Wörter) an. Sie werden grün.","Ein Verb ist etwas, das man tun kann: walk = gehen, buy = kaufen …","Achtung: „water“ kann Nomen (Wasser) oder Verb (gießen) sein – beides zählt."],
+  words:["buy","local food","go","walk","turn off","separate","do","plant","recycle","close","save","a project","change","water","use","plants","trees","plant ","lights","less water","plastic","paper","take","rubbish","to school","by bike","the bus","energy","your habits"],
+  verbs:["buy","go","walk","turn off","separate","do","plant","recycle","close","save","change","use","plant ","take"], either:["water"]},
+ {id:"e13b", nr:"13b", page:19, title:"Acting green – b) what you can do", type:"combo",
+  task:"b) Match the verbs with the other words to write down what you can do to protect the environment.",
+  de:["Verbinde ein Verb mit passenden Wörtern. So entstehen Tipps für die Umwelt, z. B. buy local food (Essen aus der Region kaufen).","Tippe erst ein Verb an, dann die passenden Wörter.","Schaffe 10 verschiedene Ausdrücke."],
+  verbs:["buy","go","walk","turn off","separate","do","plant","recycle","close","save","change","use","water","take"],
+  nouns:["local food","a project","plants","trees","lights","less water","plastic","paper","rubbish","to school","by bike","the bus","energy","your habits","water"],
+  ok:{"buy":["local food","plants","trees","paper","less water"],"go":["to school","by bike"],"walk":["to school"],"turn off":["lights","the water","water"],"separate":["rubbish","plastic","paper"],"do":["a project"],"plant":["trees","plants"],"recycle":["plastic","paper","rubbish"],"close":[],"save":["energy","water","paper","plastic"],"change":["your habits"],"use":["less water","the bus","paper","energy","plastic"],"water":["plants","trees"],"take":["the bus"]},
+  goal:10, example:"buy local food"},
+ {id:"e14", nr:14, page:20, title:"Unscramble the words", type:"fill",
+  task:"Unscramble the nouns and write them down.",
+  de:["Die Buchstaben sind durcheinander. Bringe sie in die richtige Reihenfolge.","Alle Wörter haben mit Umwelt zu tun.","Tipp: Achte auf den Anfangsbuchstaben – er steht oft irgendwo im Wort. Nr. 3 sind zwei Wörter."],
+  items:[
+   {q:"pulolitno", a:["pollution"], ex:true, hint:"Umweltverschmutzung"},
+   {q:"gneersouhe", a:["greenhouse"], hint:"Gewächshaus · g…"},
+   {q:"goblal wranimg", a:["global warming"], hint:"Erderwärmung · g… w…"},
+   {q:"prodiontcu", a:["production"], hint:"Herstellung · p…"},
+   {q:"wetsa", a:["waste"], hint:"Abfall · w…"},
+   {q:"soulnoit", a:["solution"], hint:"Lösung · s…"}]},
+ {id:"e15", nr:15, page:20, title:"Opposites", type:"fill",
+  task:"Write down the opposites.",
+  de:["Schreibe das Gegenteil auf Englisch.","Beispiel: big ↔ small (groß ↔ klein)."],
+  items:[
+   {q:"less ↔", a:["more"], hint:"weniger ↔ mehr"},
+   {q:"empty ↔", a:["full"], hint:"leer ↔ voll"},
+   {q:"clean ↔", a:["dirty"], hint:"sauber ↔ schmutzig"},
+   {q:"war ↔", a:["peace"], hint:"Krieg ↔ Frieden"},
+   {q:"fill ↔", a:["empty"], hint:"füllen ↔ leeren"},
+   {q:"over ↔", a:["under"], hint:"über ↔ unter"},
+   {q:"close ↔", a:["open"], hint:"schließen ↔ öffnen"},
+   {q:"problem ↔", a:["solution"], hint:"Problem ↔ Lösung"}]},
+ {id:"e16a", nr:"16a", page:20, title:"Pronouns – a) sentences", type:"fill",
+  task:"a) Complete the following sentences with the correct pronouns.",
+  de:["my friend = mein Freund · a friend of mine = ein Freund von mir.","Wenn das Nomen fehlt, benutzt man: mine, yours, his, hers, its, ours, theirs.","Bei Nr. 4 und 5 ist es umgekehrt: Dort steht ein Nomen (helmet, basket), also his / its."],
+  items:[
+   {q:"Leo is <b>my</b> friend. → He is a friend of …", a:["mine"]},
+   {q:"It's <b>your</b> skateboard. → It's …", a:["yours"]},
+   {q:"This is <b>her</b> crown. → This is …", a:["hers"]},
+   {q:"This is … helmet. ← This is <b>his</b>.", a:["his"]},
+   {q:"This is … basket. ← This is <b>its</b>.", a:["its"]},
+   {q:"It's <b>our</b> car. → It's …", a:["ours"]},
+   {q:"This is <b>their</b> presentation. → This is …", a:["theirs"]}]},
+ {id:"e16b", nr:"16b", page:20, title:"Pronouns – b) pairs", type:"fill",
+  task:"b) Write down the pairs.",
+  de:["Schreibe zu jedem Wort das Paar-Wort: my – mine.","Bei his und its bleibt das Wort gleich!"],
+  items:[
+   {q:"my –", a:["mine"], ex:true},
+   {q:"your –", a:["yours"]},
+   {q:"his –", a:["his"]},
+   {q:"her –", a:["hers"]},
+   {q:"its –", a:["its"]},
+   {q:"our –", a:["ours"]},
+   {q:"their –", a:["theirs"]}]},
+ {id:"e17a", nr:"17a", page:21, title:"You can do it – a) translation", type:"fill",
+  task:"a) Write down the correct translation next to the words.",
+  de:["Schreibe die deutsche Bedeutung auf.","Das sind Modalverben: können, dürfen, müssen, sollen, wollen.","Achtung: must not = darf nicht · needn't / don't have to = muss nicht."],
+  items:[
+   {q:"be able to", a:["tun koennen","koennen","faehig sein","in der lage sein"], ex:true, show:"tun können"},
+   {q:"should not", a:["sollte nicht","sollen nicht","soll nicht","solltest nicht"]},
+   {q:"be allowed to", a:["duerfen","darf"]},
+   {q:"can", a:["koennen","kann"]},
+   {q:"must", a:["muessen","muss"]},
+   {q:"have to", a:["muessen","muss"]},
+   {q:"want to", a:["wollen","will","moechten"]},
+   {q:"needn't (to)", a:["nicht muessen","muss nicht","nicht brauchen","braucht nicht","brauchen nicht","muessen nicht"]},
+   {q:"couldn't", a:["konnte nicht","koennte nicht","konnten nicht","nicht koennen"]},
+   {q:"could", a:["konnte","koennte","konnten","koennten"]},
+   {q:"can't", a:["kann nicht","nicht koennen","koennen nicht"]},
+   {q:"must not", a:["nicht duerfen","darf nicht","duerfen nicht"]},
+   {q:"don't have to", a:["nicht muessen","muss nicht","muessen nicht","brauchen nicht","nicht brauchen"]}]},
+ {id:"e17b", nr:"17b", page:21, title:"You can do it – b) sentences", type:"gaps",
+  task:"b) Complete the sentences below. You don't need all of the words because you can use some of them more than once.",
+  de:["Wähle in jeder Lücke ein Modalverb.","Überlege: Ist es erlaubt (can, are allowed to)? Ist es eine Pflicht (must, have to)? Ist es verboten (must not)? Ist es ein Rat (should / should not)?","Manchmal passen mehrere Wörter."],
+  items:[
+   {s:"You are {0} open the window but you {1} leave it open the whole day.", g:[["allowed to"],["needn't","don't have to"]], ex:true, opts:[["allowed to","not allowed to"],null]},
+   {s:"You {0} eat a banana but you {1} throw the peel next to the bin.", g:[["can","are allowed to","could"],["must not","should not","are not allowed to","can't"]]},
+   {s:"You {0} recycle paper and plastic but you {1} put them together in one trashcan.", g:[["should","must","have to","can"],["must not","should not","are not allowed to","can't"]]},
+   {s:"You {0} turn off the television because you are {1} leave it on all night.", g:[["should","must","have to"],["not allowed to"]], opts:[null,["allowed to","not allowed to","able to"]]},
+   {s:"You {0} open the windows in winter because you {1} save energy.", g:[["should not","must not","are not allowed to","can't"],["should","must","have to","want to"]]},
+   {s:"If you {0} change your school, you {1} act green yourself as well.", g:[["want to"],["have to","must","should"]]},
+   {s:"You {0} protect the environment and you {1} plant your own school garden.", g:[["can","should","must","could","have to","are able to"],["could","can","should","are allowed to"]]}]},
+ {id:"e18", nr:18, page:21, title:"Now it's YOUR turn", type:"write",
+  task:"Write an article for your classmates about what you can do to act green at school and at home. Use your textbook (pages 22–29) for ideas and help.",
+  de:["Schreibe einen kurzen Artikel (mindestens 60 Wörter) für deine Klasse: Was kann man in der Schule und zu Hause für die Umwelt tun?","Benutze Wörter aus den Aufgaben 13 und 17: You can turn off the lights … You should not …","Schau dir das Bild im Heft an: Was macht die Familie falsch? (Licht an, Fenster offen, Kühlschrank offen …)"],
+  starters:["Do you want to act green? Here are some ideas.","At school, you can …","At home, you should …","You must not …","You don't have to …, but …","It is important to save energy because …","Let's act green together!"],
+  minWords:60}
+];
+
+/* ---------------- Start ---------------- */
+function countFields(ex){
+  if (ex.type==="fill"||ex.type==="prep"||ex.type==="order") return ex.items.filter(function(i){return !i.ex;}).length;
+  if (ex.type==="gaps") return ex.items.reduce(function(n,i){return n+(i.ex?0:i.g.length);},0);
+  return 1;
+}
+function home(){
+  var done = EX.filter(function(e){return S.done[e.id];}).length;
+  var h = '<section class="card hero"><span class="leaf">🌍</span><p class="muted small" style="margin:0">Englisch · Workbook Unit 1 · Seiten 18–21</p><h1>Acting green</h1>'+
+    '<div class="bar"><i style="width:'+Math.round(done/EX.length*100)+'%"></i></div><p class="small muted">'+done+' von '+EX.length+' Aufgaben fertig · <b>'+S.xp+' XP</b></p>'+
+    '<button class="btn soft '+(S.de?'on':'')+'" id="deAll">🇩🇪 Erklärungen auf Deutsch '+(S.de?'an':'aus')+'</button></section><div class="list">';
+  EX.forEach(function(e){
+    h += '<a class="ex '+(S.done[e.id]?'done':'')+'" href="#'+e.id+'"><span class="num">'+e.nr+'</span><span style="flex:1;min-width:0"><b>'+esc(e.title)+'</b><span class="small muted">Seite '+e.page+'</span></span><span class="st">'+(S.done[e.id]?'✓ fertig':'offen')+'</span></a>';
+  });
+  h += '</div><p class="small muted" style="margin-top:14px">Alles wird nur auf diesem Gerät gespeichert.</p>';
+  app.innerHTML = h;
+  document.getElementById("deAll").onclick = function(){ S.de=!S.de; save(); home(); };
+}
+
+/* ---------------- Aufgabe ---------------- */
+function show(ex){
+  var idx = EX.indexOf(ex), next = EX[idx+1];
+  var h = '<a class="back" href="#">← Alle Aufgaben</a><div class="top"><span class="num">'+ex.nr+'</span><div class="grow"><h2 style="margin:0">'+esc(ex.title)+'</h2><span class="small muted">Workbook Seite '+ex.page+'</span></div><span class="xp" id="xp">'+S.xp+' XP</span></div>'+
+    '<section class="card"><p class="task">'+esc(ex.task)+'</p><div class="help"><button class="btn soft '+(S.de?'on':'')+'" id="deBtn">🇩🇪 Auf Deutsch</button></div><div id="de"></div><div id="body"></div>'+
+    '<div id="fb"></div><div class="actions"><button class="btn main" id="check">Prüfen</button><button class="btn soft" id="solve" hidden>Lösung zeigen</button><span class="grow"></span>'+
+    (next?'<a class="btn" href="#'+next.id+'" id="nextEx">Nächste Aufgabe →</a>':'<a class="btn" href="#">Fertig</a>')+'</div></section>';
+  app.innerHTML = h;
+  var deBox = document.getElementById("de");
+  function renderDe(){ deBox.innerHTML = S.de ? '<div class="de"><b>🇩🇪 Einfach erklärt</b><ul>'+ex.de.map(function(t){return '<li>'+esc(t)+'</li>';}).join("")+'</ul></div>' : ""; }
+  renderDe();
+  document.getElementById("deBtn").onclick = function(){ S.de=!S.de; save(); this.classList.toggle("on",S.de); renderDe(); };
+  var T = TYPES[ex.type](ex, document.getElementById("body"));
+  var tries = 0;
+  document.getElementById("check").onclick = function(){
+    var r = T.check(); tries++;
+    var key = ex.id, solved = S.solved[key] || (S.solved[key] = {});
+    var gain = 0;
+    r.okIds.forEach(function(id){ if(!solved[id]){ solved[id]=1; gain+=1; } });
+    var fb = document.getElementById("fb");
+    if (r.missing) { fb.innerHTML = '<div class="fb no">'+r.missing+'</div>'; save(); return; }
+    if (r.ok === r.total) {
+      if (!S.done[key]) { S.done[key]=1; gain+=10; confetti(); }
+      fb.innerHTML = '<div class="fb ok">✓ Super! Alles richtig. '+(next?'Weiter mit der nächsten Aufgabe.':'Du hast alle Aufgaben geschafft! 🎉')+'</div>';
+    } else {
+      fb.innerHTML = '<div class="fb no">'+r.ok+' von '+r.total+' richtig. Verbessere die roten Felder und prüfe nochmal.'+(tries>=2?' Du kannst dir auch die Lösung anzeigen lassen.':'')+'</div>';
+      var c=document.querySelector(".card"); c.classList.remove("shake"); void c.offsetWidth; c.classList.add("shake");
+    }
+    if (tries>=2 && T.solve) document.getElementById("solve").hidden = false;
+    if (gain) { S.xp += gain; floatXp("+"+gain+" XP", this); document.getElementById("xp").textContent = S.xp+" XP"; }
+    save();
+  };
+  document.getElementById("solve").onclick = function(){ T.solve(); this.hidden = true; };
+}
+
+/* ---------------- Aufgabentypen ---------------- */
+function valOf(ex,i){ var v=S.vals[ex.id]; return v&&v[i]!=null?v[i]:""; }
+function setVal(ex,i,v){ (S.vals[ex.id]=S.vals[ex.id]||{})[i]=v; save(); }
+var TYPES = {};
+
+/* Lücken mit Textfeld (Wortkasten optional) */
+TYPES.fill = function(ex, el){
+  var h = "";
+  if (ex.bank) h += '<p class="small muted" style="margin:0">Wortkasten – antippen zum Einsetzen:</p><div class="bank">'+ex.bank.map(function(w){return '<button class="chip" data-w="'+esc(w)+'">'+esc(w)+'</button>';}).join("")+'</div>';
+  h += '<div class="rows">'+ex.items.map(function(it,i){
+    return '<div class="row"><span class="lab"><span class="n">'+(i+1)+'.</span>'+(ex.id==="e14"?'<b>'+esc(it.q)+'</b>':it.q)+(it.hint&&S.de?' <span class="small muted">('+esc(it.hint)+')</span>':'')+'</span>'+
+      (it.ex?'<input class="in ex" value="'+esc(it.show||it.a[0])+'" disabled aria-label="Beispiel">':'<input class="in" data-i="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Antwort '+(i+1)+'">')+
+      '<span class="sol" hidden></span></div>';
+  }).join("")+'</div>';
+  el.innerHTML = h;
+  var last = null, ins = [].slice.call(el.querySelectorAll("input[data-i]"));
+  ins.forEach(function(inp){
+    inp.value = valOf(ex, inp.dataset.i);
+    inp.onfocus = function(){ last = inp; };
+    inp.oninput = function(){ inp.classList.remove("ok","no"); setVal(ex, inp.dataset.i, inp.value); marks(); };
+    inp.onkeydown = function(e){ if(e.key==="Enter"){ var n=ins[ins.indexOf(inp)+1]; if(n)n.focus(); else document.getElementById("check").click(); } };
+  });
+  function marks(){ if(!ex.bank)return; var used=ins.map(function(x){return norm(x.value);}); [].forEach.call(el.querySelectorAll(".chip"),function(c){ c.classList.toggle("used", ex.id!=="e11" && used.indexOf(norm(c.dataset.w))>=0); }); }
+  [].forEach.call(el.querySelectorAll(".chip"), function(c){
+    c.onmousedown = function(e){ e.preventDefault(); };
+    c.onclick = function(){
+      var t = last && !last.value ? last : ins.filter(function(x){return !x.value;})[0] || last;
+      if (!t) return; t.value = c.dataset.w; t.classList.remove("ok","no"); setVal(ex,t.dataset.i,t.value); marks();
+      var n = ins.filter(function(x){return !x.value;})[0]; last = n || t;
+    };
+  });
+  marks();
+  return {
+    check: function(){
+      var ok=0, okIds=[], empty=0;
+      ins.forEach(function(inp){
+        var it = ex.items[inp.dataset.i], v = norm(inp.value);
+        if (!v) { empty++; inp.classList.remove("ok"); inp.classList.add("no"); return; }
+        var good = it.a.some(function(a){ return norm(a)===v; });
+        inp.classList.toggle("ok",good); inp.classList.toggle("no",!good);
+        if (good) { ok++; okIds.push(inp.dataset.i); }
+      });
+      return {ok:ok, total:ins.length, okIds:okIds, missing: empty===ins.length ? "Fülle zuerst die Felder aus." : ""};
+    },
+    solve: function(){ ins.forEach(function(inp){ if(!inp.classList.contains("ok")){ var s=inp.parentNode.querySelector(".sol"); s.hidden=false; s.textContent="Lösung: "+(ex.items[inp.dataset.i].show||ex.items[inp.dataset.i].a[0]); } }); }
+  };
+};
+
+/* Präpositionen in Kreisen */
+TYPES.prep = function(ex, el){
+  var opts = ex.bank;
+  el.innerHTML = '<div class="prep">'+ex.items.map(function(it,i){
+    return '<div class="pbox"><select class="in" data-i="'+i+'" aria-label="Präposition für '+esc(it.q)+'"><option value="">?</option>'+opts.map(function(o){return '<option>'+o+'</option>';}).join("")+'</select><p>'+esc(it.q)+'</p><span class="sol" hidden></span></div>';
+  }).join("")+'</div>';
+  var sels = [].slice.call(el.querySelectorAll("select"));
+  sels.forEach(function(s){ s.value = valOf(ex,s.dataset.i); s.onchange=function(){ s.classList.remove("ok","no"); setVal(ex,s.dataset.i,s.value); }; });
+  return {
+    check: function(){
+      var ok=0, okIds=[], empty=0;
+      sels.forEach(function(s){ var it=ex.items[s.dataset.i]; if(!s.value){empty++;s.classList.add("no");return;} var g=it.a.indexOf(s.value)>=0; s.classList.toggle("ok",g); s.classList.toggle("no",!g); if(g){ok++;okIds.push(s.dataset.i);} });
+      return {ok:ok,total:sels.length,okIds:okIds,missing:empty===sels.length?"Wähle zuerst Präpositionen aus.":""};
+    },
+    solve: function(){ sels.forEach(function(s){ if(!s.classList.contains("ok")){ var x=s.parentNode.querySelector(".sol"); x.hidden=false; x.textContent="Lösung: "+ex.items[s.dataset.i].a[0]; } }); }
+  };
+};
+
+/* Wörter in die richtige Reihenfolge tippen + Satz ergänzen */
+TYPES.order = function(ex, el){
+  var state = ex.items.map(function(it,i){ var v=valOf(ex,"o"+i); return v ? v : []; });
+  function draw(){
+    el.innerHTML = ex.items.map(function(it,i){
+      var placed = state[i], pool = it.w.map(function(w,k){return k;}).filter(function(k){return placed.indexOf(k)<0;});
+      if (it.ex) return '<div class="order ok"><b>'+(i+1)+'.</b> <span class="muted small">Beispiel:</span> In the picture there is …<input class="in wide" data-c="'+i+'" placeholder="… ergänze: was ist auf dem Bild?" value="'+esc(valOf(ex,"c"+i))+'" style="margin-top:6px"></div>';
+      return '<div class="order" id="o'+i+'"><b>'+(i+1)+'.</b><div class="built">'+(placed.length?placed.map(function(k,p){return '<button class="chip pick" data-i="'+i+'" data-p="'+p+'">'+esc(it.w[k])+'</button>';}).join(""):'<span class="ph">Tippe die Wörter in der richtigen Reihenfolge an</span>')+'</div>'+
+        '<div class="inline">'+shuffleStable(pool,i).map(function(k){return '<button class="chip" data-i="'+i+'" data-k="'+k+'">'+esc(it.w[k])+'</button>';}).join("")+'</div>'+
+        '<input class="in wide" data-c="'+i+'" placeholder="… Satz zu Ende schreiben (Textbook S. 23)" value="'+esc(valOf(ex,"c"+i))+'" style="margin-top:8px"><span class="sol" hidden></span></div>';
+    }).join("");
+    [].forEach.call(el.querySelectorAll(".chip[data-k]"),function(c){ c.onclick=function(){ state[c.dataset.i].push(+c.dataset.k); setVal(ex,"o"+c.dataset.i,state[c.dataset.i]); draw(); }; });
+    [].forEach.call(el.querySelectorAll(".chip[data-p]"),function(c){ c.onclick=function(){ state[c.dataset.i].splice(+c.dataset.p,1); setVal(ex,"o"+c.dataset.i,state[c.dataset.i]); draw(); }; });
+    [].forEach.call(el.querySelectorAll("input[data-c]"),function(inp){ inp.oninput=function(){ setVal(ex,"c"+inp.dataset.c,inp.value); }; });
+  }
+  var orderCache = {};
+  function shuffleStable(pool,i){ if(!orderCache[i]) orderCache[i]=shuffle(ex.items[i].w.map(function(w,k){return k;})); return orderCache[i].filter(function(k){return pool.indexOf(k)>=0;}); }
+  draw();
+  return {
+    check: function(){
+      var ok=0, okIds=[], total=0, empty=0;
+      ex.items.forEach(function(it,i){
+        if (it.ex) return; total++;
+        var box = document.getElementById("o"+i);
+        if (state[i].length < it.w.length) { empty++; box.classList.remove("ok"); box.classList.add("no"); return; }
+        var s = norm(state[i].map(function(k){return it.w[k];}).join(" "));
+        var g = it.a.some(function(a){return norm(a)===s;});
+        box.classList.toggle("ok",g); box.classList.toggle("no",!g);
+        if (g) { ok++; okIds.push(i); }
+      });
+      return {ok:ok,total:total,okIds:okIds,missing:empty===total?"Tippe zuerst die Wörter in die richtige Reihenfolge.":""};
+    },
+    solve: function(){ ex.items.forEach(function(it,i){ var box=document.getElementById("o"+i); if(!box||box.classList.contains("ok"))return; var s=box.querySelector(".sol"); s.hidden=false; var a=it.a[0]; s.textContent="Lösung: "+a.charAt(0).toUpperCase()+a.slice(1).replace(/\bi\b/g,"I")+" …"; }); }
+  };
+};
+
+/* Verben anmalen */
+TYPES.pick = function(ex, el){
+  var sel = valOf(ex,"sel") || [];
+  function draw(){
+    el.innerHTML = '<div class="bank">'+ex.words.map(function(w,i){ return '<button class="chip '+(sel.indexOf(i)>=0?'sel':'')+'" data-i="'+i+'">'+esc(w.trim())+'</button>'; }).join("")+'</div><p class="small muted">Grün markiert: '+sel.length+'</p>';
+    [].forEach.call(el.querySelectorAll(".chip"),function(c){ c.onclick=function(){ var i=+c.dataset.i, p=sel.indexOf(i); if(p>=0)sel.splice(p,1); else sel.push(i); setVal(ex,"sel",sel); draw(); }; });
+  }
+  draw();
+  return {
+    check: function(){
+      var chips = el.querySelectorAll(".chip"), wrong=0, miss=0;
+      ex.words.forEach(function(w,i){
+        var isV = ex.verbs.indexOf(w)>=0, either = ex.either.indexOf(w)>=0, on = sel.indexOf(i)>=0;
+        chips[i].classList.remove("wrong","miss");
+        if (either) return;
+        if (on && !isV) { wrong++; chips[i].classList.add("wrong"); }
+        if (!on && isV) miss++;
+      });
+      if (!sel.length) return {ok:0,total:1,okIds:[],missing:"Tippe zuerst die Verben an."};
+      var all = !wrong && !miss;
+      document.getElementById("fb").innerHTML="";
+      return {ok: all?1:0, total:1, okIds: all?["all"]:[], missing: all ? "" : (wrong?wrong+" Wörter sind keine Verben (rot). ":"")+(miss?"Es fehlen noch "+miss+" Verben.":"")};
+    },
+    solve: function(){ var chips=el.querySelectorAll(".chip"); ex.words.forEach(function(w,i){ if(ex.verbs.indexOf(w)>=0&&sel.indexOf(i)<0)chips[i].classList.add("miss"); }); }
+  };
+};
+
+/* Verb + Wörter verbinden */
+TYPES.combo = function(ex, el){
+  var list = valOf(ex,"list") || [], verb = null;
+  function okPair(v,n){ return (ex.ok[v]||[]).indexOf(n)>=0; }
+  function draw(msg){
+    var good = list.length;
+    el.innerHTML = '<p class="small muted" style="margin:0">1. Verb antippen:</p><div class="bank">'+ex.verbs.map(function(v){return '<button class="chip '+(verb===v?'pick':'')+'" data-v="'+esc(v)+'">'+esc(v)+'</button>';}).join("")+'</div>'+
+      '<p class="small muted" style="margin:0">2. passendes Wort antippen:</p><div class="bank">'+ex.nouns.map(function(n){return '<button class="chip" data-n="'+esc(n)+'"'+(verb?'':' disabled')+'>'+esc(n)+'</button>';}).join("")+'</div>'+
+      '<div class="small" style="color:var(--bad);min-height:1.3em">'+(msg||"")+'</div>'+
+      '<b>Deine Ausdrücke: '+good+' von '+ex.goal+'</b><div class="bar"><i style="width:'+Math.min(100,good/ex.goal*100)+'%"></i></div>'+
+      '<div class="phrases"><span class="phrase" style="background:#f3f0e6;border-color:#d9d2bd">'+esc(ex.example)+' <span class="small muted">(Beispiel)</span></span>'+list.map(function(p,i){return '<span class="phrase">'+esc(p)+'<button data-x="'+i+'" aria-label="entfernen">✕</button></span>';}).join("")+'</div>';
+    [].forEach.call(el.querySelectorAll("[data-v]"),function(c){ c.onclick=function(){ verb = verb===c.dataset.v?null:c.dataset.v; draw(); }; });
+    [].forEach.call(el.querySelectorAll("[data-n]"),function(c){ c.onclick=function(){
+      var p = verb+" "+c.dataset.n;
+      if (p===ex.example || list.indexOf(p)>=0) return draw("Diesen Ausdruck hast du schon.");
+      if (!okPair(verb,c.dataset.n)) { c.classList.add("wrong"); return setTimeout(function(){ draw("„"+p+"“ passt nicht so gut. Versuch ein anderes Wort."); },350); }
+      list.push(p); setVal(ex,"list",list); verb=null; draw();
+    }; });
+    [].forEach.call(el.querySelectorAll("[data-x]"),function(b){ b.onclick=function(){ list.splice(+b.dataset.x,1); setVal(ex,"list",list); draw(); }; });
+  }
+  draw();
+  return {
+    check: function(){ var n=Math.min(list.length,ex.goal), ids=list.slice(0,ex.goal); return {ok:n,total:ex.goal,okIds:ids,missing: n<ex.goal ? "Du hast "+list.length+" Ausdrücke. Schaffe "+ex.goal+"." : ""}; },
+    solve: function(){ draw("Ideen: turn off lights · take the bus · plant trees · save energy · recycle paper · separate rubbish · walk to school · go by bike · use less water · change your habits · do a project · water plants"); }
+  };
+};
+
+/* Lücken mit Auswahl (Modalverben) */
+TYPES.gaps = function(ex, el){
+  el.innerHTML = '<div class="bank" style="font-size:.9rem">'+MODALS.map(function(m){return '<span class="chip" style="cursor:default">'+esc(m)+'</span>';}).join("")+'</div>'+
+    ex.items.map(function(it,i){
+      var s = esc(it.s).replace(/\{(\d)\}/g,function(_,g){
+        g=+g; var key=i+"-"+g, opts;
+        if (it.opts&&it.opts[g]) opts=it.opts[g];
+        else opts = MODALS.filter(function(m){return m.indexOf("are ")!==0 && m!=="be able to";}).concat(["are allowed to","are not allowed to","are able to"]);
+        if (it.ex) return '<select class="in ex" disabled><option>'+esc(it.g[g][0])+'</option></select>';
+        return '<select class="in" data-k="'+key+'"><option value="">…</option>'+opts.map(function(o){return '<option'+(valOf(ex,key)===o?' selected':'')+'>'+esc(o)+'</option>';}).join("")+'</select>';
+      });
+      return '<p class="sent"><b>'+(i+1)+'.</b> '+s+(it.ex?' <span class="small muted">(Beispiel)</span>':'')+'<span class="sol" hidden style="display:block"></span></p>';
+    }).join("");
+  var sels=[].slice.call(el.querySelectorAll("select[data-k]"));
+  sels.forEach(function(s){ s.onchange=function(){ s.classList.remove("ok","no"); setVal(ex,s.dataset.k,s.value); }; });
+  return {
+    check: function(){
+      var ok=0, okIds=[], empty=0;
+      sels.forEach(function(s){ var p=s.dataset.k.split("-"), acc=ex.items[p[0]].g[p[1]]; if(!s.value){empty++;s.classList.add("no");return;} var g=acc.indexOf(s.value)>=0; s.classList.toggle("ok",g); s.classList.toggle("no",!g); if(g){ok++;okIds.push(s.dataset.k);} });
+      return {ok:ok,total:sels.length,okIds:okIds,missing:empty===sels.length?"Wähle zuerst Wörter für die Lücken.":""};
+    },
+    solve: function(){ ex.items.forEach(function(it,i){ if(it.ex)return; var p=el.querySelectorAll(".sent")[i], x=p.querySelector(".sol"); x.hidden=false; x.textContent="Lösung: "+it.g.map(function(a){return a.slice(0,2).join(" / ");}).join("  …  "); }); }
+  };
+};
+
+/* Freies Schreiben */
+TYPES.write = function(ex, el){
+  el.innerHTML = '<p class="small muted" style="margin:0">Satzanfänge – antippen zum Einfügen:</p><div class="bank">'+ex.starters.map(function(s){return '<button class="chip" data-s="'+esc(s)+'">'+esc(s)+'</button>';}).join("")+'</div>'+
+    '<input class="in wide" id="headline" placeholder="Überschrift, z. B. How to act green" value="'+esc(valOf(ex,"h"))+'" style="margin-bottom:8px"><textarea class="in" id="txt" placeholder="Write your article here …" spellcheck="true" lang="en">'+esc(valOf(ex,"t"))+'</textarea>'+
+    '<ul class="checks" id="cl"></ul>';
+  var ta=document.getElementById("txt"), hl=document.getElementById("headline");
+  function words(){ return (ta.value.match(/[A-Za-z']+/g)||[]).length; }
+  function crit(){
+    var t=ta.value.toLowerCase();
+    return [
+      [!!hl.value.trim(), "Überschrift"],
+      [words()>=ex.minWords, "Mindestens "+ex.minWords+" Wörter ("+words()+")"],
+      [/\bschool\b/.test(t)&&/\bhome\b/.test(t), "Schule und Zuhause kommen vor"],
+      [(t.match(/\b(can|can't|should|shouldn't|must|mustn't|have to|don't have to|needn't|allowed to)\b/g)||[]).length>=3, "Mindestens 3 Modalverben (can, should, must …)"],
+      [(t.match(/\b(recycle|energy|water|lights|plastic|paper|rubbish|environment|bike|bus|plant|trees|waste|save|turn off)\b/g)||[]).length>=3, "Mindestens 3 Umwelt-Wörter"]
+    ];
+  }
+  function upd(){ document.getElementById("cl").innerHTML = crit().map(function(c){return '<li>'+(c[0]?'✅':'⬜')+' '+esc(c[1])+'</li>';}).join(""); setVal(ex,"t",ta.value); setVal(ex,"h",hl.value); }
+  ta.oninput=upd; hl.oninput=upd;
+  [].forEach.call(el.querySelectorAll("[data-s]"),function(c){ c.onclick=function(){ ta.value += (ta.value&&!/\s$/.test(ta.value)?" ":"") + c.dataset.s.replace(/ …$/," "); ta.focus(); upd(); }; });
+  upd();
+  return {
+    check: function(){ var c=crit(), n=c.filter(function(x){return x[0];}).length; return {ok:n===c.length?1:0,total:1,okIds:n===c.length?["text"]:[],missing:n===c.length?"":"Noch nicht fertig: "+c.filter(function(x){return !x[0];}).map(function(x){return x[1];}).join(" · ")}; },
+    solve: null
+  };
+};
+
+/* ---------------- Effekte ---------------- */
+function floatXp(t, el){ var r=el.getBoundingClientRect(), f=document.createElement("div"); f.className="float"; f.textContent=t; f.style.left=(r.left+r.width/2-30)+"px"; f.style.top=(r.top-10)+"px"; document.body.appendChild(f); setTimeout(function(){f.remove();},1000); }
+function confetti(){
+  var c=document.getElementById("confetti"), x=c.getContext("2d"); c.width=innerWidth; c.height=innerHeight;
+  var cols=["#2f9e5b","#c98a00","#2f5fe0","#d6453d","#7fd39a"], P=[];
+  for(var i=0;i<110;i++)P.push({x:Math.random()*c.width,y:-20-Math.random()*c.height*.4,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,r:5+Math.random()*6,a:Math.random()*6,c:cols[i%5],leaf:i%4===0});
+  var f=0;(function t(){x.clearRect(0,0,c.width,c.height);P.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.05;p.a+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.a);if(p.leaf){x.font=(p.r*2.4)+"px serif";x.fillText("🍃",0,0);}else{x.fillStyle=p.c;x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);}x.restore();});if(++f<150)requestAnimationFrame(t);else x.clearRect(0,0,c.width,c.height);})();
+}
+
+/* ---------------- Navigation ---------------- */
+function route(){
+  var id = location.hash.slice(1), ex = EX.filter(function(e){return e.id===id;})[0];
+  if (ex) show(ex); else home();
+  window.scrollTo(0,0);
+}
+addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>

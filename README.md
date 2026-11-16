@@ -4,7 +4,8 @@ Startseite für die Klasse 8.5: Fach wählen, dann Thema wählen.
 
 - **Mathe** → *Terme und Gleichungen* öffnet die App x-Quest (Ordner `mathe/`, Kopie aus dem Repo `Mathe`)
 - **NaWi** → *Der Weg der Nahrung* öffnet die NaWi-Lern-App (Ordner `nawi/`, Kopie aus dem Repo `Lernapp-Nawi`)
-- **Deutsch, Englisch** und weitere Themen: Platz für eigene Notizen
+- **Englisch** → *Acting green (Workbook S. 18–21)* öffnet die Übungen zu Aufgabe 10–18 zum Ausfüllen (Ordner `englisch/`)
+- **Deutsch** und weitere Themen: Platz für eigene Notizen
 
 ## Was die App kann
 
