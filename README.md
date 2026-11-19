@@ -33,3 +33,13 @@ In `index.html` steht oben im Skript die Liste `FAECHER`. Dort ein Thema ergänz
 
 GitHub → Settings → Pages → Branch `main`, Ordner `/ (root)` → Save.
 Danach ist die App unter `https://lupo2701.github.io/Klasse-8.5/` erreichbar.
+
+## Eine Datei für die interne Lernplattform
+
+`python3 tools/eine-datei.py` packt Startseite, Mathe-, NaWi- und Englisch-App in **eine** Datei:
+`dist/Lern-App-Klasse-8.5.html` (ca. 700 KB). Sie lädt nichts aus dem Internet und braucht kein GitHub.
+
+- Auf der Lernplattform der Schule hochladen (z. B. als Datei-Material im Kursraum).
+- Nach jeder Änderung an der App das Skript erneut ausführen und die alte Datei auf der Plattform **ersetzen**, nicht daneben hochladen. Bleiben Adresse und Browser gleich, bleibt der Fortschritt der Schüler erhalten.
+- Heruntergeladen läuft die Datei auch ohne Internet; der Fortschritt bleibt dann in diesem Browser.
+- Der Ordner `dist/` wird nicht ins öffentliche Repo hochgeladen.
